@@ -71,7 +71,7 @@ export function FeaturesSection() {
   })
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
+    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -98,7 +98,7 @@ export function FeaturesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full hover:bg-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 h-full hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Icon */}
                 <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${feature.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="h-7 w-7 text-white" />

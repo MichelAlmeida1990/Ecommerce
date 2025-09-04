@@ -59,7 +59,7 @@ export function BenefitsSection() {
   })
 
   return (
-    <section ref={ref} className="py-20 bg-black/50 backdrop-blur-sm">
+    <section ref={ref} className="py-20 bg-gray-800/50 backdrop-blur-sm">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -86,7 +86,7 @@ export function BenefitsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full hover:bg-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 h-full hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300">
                   <benefit.icon className="h-7 w-7 text-white" />

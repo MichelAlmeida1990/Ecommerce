@@ -262,7 +262,7 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 bg-surface">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -290,7 +290,7 @@ export function TestimonialsSection() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.5 }}
-              className="bg-card border border-border rounded-2xl p-8 text-center relative"
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center relative"
             >
               {/* Quote Icon */}
               <div className="absolute top-4 left-4 text-accent/20">
@@ -341,7 +341,7 @@ export function TestimonialsSection() {
         <div ref={controlsRef} className="flex items-center justify-center gap-4 mb-8">
           <button
             onClick={prevTestimonial}
-            className="w-12 h-12 bg-card border border-border rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
             aria-label="Depoimento anterior"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -365,7 +365,7 @@ export function TestimonialsSection() {
 
           <button
             onClick={nextTestimonial}
-            className="w-12 h-12 bg-card border border-border rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
             aria-label="Próximo depoimento"
           >
             <ChevronRight className="w-6 h-6" />

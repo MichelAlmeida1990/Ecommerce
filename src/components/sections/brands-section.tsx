@@ -21,7 +21,7 @@ export function BrandsSection() {
   })
 
   return (
-    <section ref={ref} className="py-16 bg-black/50 backdrop-blur-sm">
+    <section ref={ref} className="py-16 bg-gray-800/50 backdrop-blur-sm">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -48,7 +48,7 @@ export function BrandsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/10">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/10">
                 {/* Logo */}
                 <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
                   {brand.logo}

@@ -177,7 +177,7 @@ export function CategoriesSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-black via-gray-900 to-black">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -219,7 +219,7 @@ export function CategoriesSection() {
                     />
                     
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/5" />
                     
                     {/* Icon */}
                     <div className="category-icon absolute top-4 left-4 text-4xl drop-shadow-lg">
@@ -231,7 +231,7 @@ export function CategoriesSection() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 bg-black/40 backdrop-blur-sm">
+                  <div className="p-6 bg-black/30 backdrop-blur-sm">
                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors drop-shadow-sm">
                       {category.name}
                     </h3>

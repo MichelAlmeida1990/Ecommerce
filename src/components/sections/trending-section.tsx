@@ -62,7 +62,7 @@ export function TrendingSection() {
   })
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
+    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -93,7 +93,7 @@ export function TrendingSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Badge */}
                 <div className={`inline-block ${product.badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full mb-4`}>
                   {product.badge}

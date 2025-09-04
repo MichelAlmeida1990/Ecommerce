@@ -46,7 +46,7 @@ export function PromoSection() {
   })
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-b from-black via-gray-900 to-black">
+    <section ref={ref} className="py-16 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div

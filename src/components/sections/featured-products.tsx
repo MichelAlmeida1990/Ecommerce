@@ -246,7 +246,7 @@ export function FeaturedProducts() {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 bg-surface">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -270,7 +270,7 @@ export function FeaturedProducts() {
           {featuredProducts.map((product, index) => (
             <motion.div
               key={product.id}
-              className="product-card group bg-card border border-border rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+              className="product-card group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               onHoverStart={() => setHoveredProduct(product.id)}
               onHoverEnd={() => setHoveredProduct(null)}
               whileHover={{ 
