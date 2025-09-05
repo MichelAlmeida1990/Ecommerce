@@ -143,28 +143,56 @@ export function Hero3DBanner() {
         // Animação dos textos de fundo
         const textItems = document.querySelectorAll('.text-item')
         textItems.forEach((item, index) => {
+          const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
           gsap.fromTo(item, 
             { opacity: 0, y: 20 },
-            { opacity: 0.6, y: 0, duration: 0.8, delay: index * 0.05, ease: "power2.out" }
+            { 
+              opacity: isOfertas ? 0.9 : 0.8, 
+              y: 0, 
+              duration: 0.8, 
+              delay: index * 0.05, 
+              ease: "power2.out" 
+            }
           )
         })
 
         // Animação contínua dos textos de fundo
         textItems.forEach((item, index) => {
-          gsap.to(item, {
-            opacity: 0.3 + (index % 3) * 0.2,
-            duration: 2 + (index % 3),
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: index * 0.1
-          })
+          const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
+          if (isOfertas) {
+            // Animação especial para OFERTAS com brilho branco
+            gsap.to(item, {
+              opacity: 0.9,
+              duration: 2,
+              repeat: -1,
+              yoyo: true,
+              ease: "sine.inOut",
+              delay: index * 0.1
+            })
+            // Animação de brilho adicional
+            gsap.to(item, {
+              textShadow: "0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.6)",
+              duration: 1.5,
+              repeat: -1,
+              yoyo: true,
+              ease: "power2.inOut"
+            })
+          } else {
+            gsap.to(item, {
+              opacity: 0.6 + (index % 3) * 0.2,
+              duration: 2 + (index % 3),
+              repeat: -1,
+              yoyo: true,
+              ease: "sine.inOut",
+              delay: index * 0.1
+            })
+          }
         })
 
         // Inicializar kinetic type
         const kineticType = document.getElementById('kinetic-type')
         if (kineticType) {
-          gsap.set(kineticType, { display: 'grid', opacity: 0.05 })
+          gsap.set(kineticType, { display: 'grid', opacity: 0.15 })
         }
 
       } catch (error) {
@@ -462,7 +490,7 @@ export function Hero3DBanner() {
                 @import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
 
                 :root {
-                  --text: #e5e5e5;
+                  --text: #ffffff;
                   --bg: #000000;
                   --highlight-bg: #3b82f6;
                   --type-line-opacity: 0.03;
@@ -541,14 +569,23 @@ export function Hero3DBanner() {
         
                         .text-item {
                   position: absolute;
-                  color: var(--text);
+                  color: #ffffff;
                   font-size: 1.2rem;
                   text-transform: uppercase;
-                  opacity: 0.4;
+                  opacity: 0.8;
                   white-space: nowrap;
                   font-family: "TheGoodMonolith", monospace;
                   z-index: 0;
                   font-weight: 600;
+                }
+
+                .text-item[data-text="OFERTAS"] {
+                  opacity: 0.9;
+                  font-size: 1.8rem;
+                  font-weight: 700;
+                  color: #ffffff;
+                  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
+                  z-index: 2;
                 }
         
         .text-item::after {
@@ -608,7 +645,7 @@ export function Hero3DBanner() {
                   align-items: center;
                   justify-content: center;
                   z-index: 1;
-                  color: var(--text);
+                  color: #ffffff;
                   letter-spacing: 0px;
                   transition: letter-spacing 0.5s ease;
                   visibility: hidden;

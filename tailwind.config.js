@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // Habilita o modo escuro baseado em classe
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -34,9 +35,6 @@ module.exports = {
           light: '#d6ff33',
           dark: '#a3cc00',
         },
-        background: '#000000', // Fundo preto
-        surface: '#111111',
-        card: '#1a1a1a',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

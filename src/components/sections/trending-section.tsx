@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { TrendingUp, Star, Eye, ShoppingCart, Heart } from 'lucide-react'
+import Link from 'next/link'
 
 const trendingProducts = [
   {
@@ -62,7 +63,7 @@ export function TrendingSection() {
   })
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700">
+    <section ref={ref} className="py-20 bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-gray-900 dark:to-black">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -75,10 +76,10 @@ export function TrendingSection() {
             <TrendingUp className="h-4 w-4 text-orange-400" />
             <span className="text-orange-400 font-semibold text-sm">PRODUTOS EM ALTA</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             Os Mais Procurados
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Produtos que estão fazendo sucesso entre nossos clientes
           </p>
         </motion.div>
@@ -93,7 +94,7 @@ export function TrendingSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
+              <div className="bg-gradient-to-br from-orange-200 to-red-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-orange-300 dark:border-white/20 rounded-2xl p-6 hover:from-orange-300 hover:to-red-300 dark:hover:from-white/20 dark:hover:to-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Badge */}
                 <div className={`inline-block ${product.badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full mb-4`}>
                   {product.badge}
@@ -110,9 +111,11 @@ export function TrendingSection() {
                 </p>
 
                 {/* Product Name */}
-                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">
-                  {product.name}
-                </h3>
+                <Link href={`/produto/${product.id}`}>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors hover:underline">
+                    {product.name}
+                  </h3>
+                </Link>
 
                 {/* Rating */}
                 <div className="flex items-center gap-2 mb-3">
@@ -128,17 +131,17 @@ export function TrendingSection() {
                       />
                     ))}
                   </div>
-                  <span className="text-gray-400 text-sm">
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">
                     {product.rating} ({product.reviews})
                   </span>
                 </div>
 
                 {/* Price */}
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-2xl font-bold text-white">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
                     R$ {product.price.toLocaleString('pt-BR')}
                   </span>
-                  <span className="text-gray-500 line-through text-sm">
+                  <span className="text-gray-600 dark:text-gray-500 line-through text-sm">
                     R$ {product.originalPrice.toLocaleString('pt-BR')}
                   </span>
                 </div>

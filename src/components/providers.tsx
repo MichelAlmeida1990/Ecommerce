@@ -1,6 +1,7 @@
 'use client'
 
 import { CartProvider } from '@/contexts/cart-context'
+import { ThemeProvider } from '@/contexts/theme-context'
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -8,9 +9,11 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <CartProvider>
-      {children}
-    </CartProvider>
+    <ThemeProvider>
+      <CartProvider>
+        {children}
+      </CartProvider>
+    </ThemeProvider>
   )
 }
 

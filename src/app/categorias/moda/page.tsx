@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { FeaturedProducts } from '@/components/sections/featured-products'
-import { Shirt, Dress, Bag, Watch, Sunglasses, Scarf } from 'lucide-react'
+import { Shirt, Watch, ShoppingBag, Glasses, Heart } from 'lucide-react'
 
 const categoryFeatures = [
   {
@@ -12,12 +12,7 @@ const categoryFeatures = [
     description: 'Estilo casual e confortável'
   },
   {
-    icon: Dress,
-    title: 'Vestidos',
-    description: 'Elegância e sofisticação'
-  },
-  {
-    icon: Bag,
+    icon: ShoppingBag,
     title: 'Bolsas',
     description: 'Acessórios indispensáveis'
   },
@@ -27,12 +22,12 @@ const categoryFeatures = [
     description: 'Ponto final no look'
   },
   {
-    icon: Sunglasses,
+    icon: Glasses,
     title: 'Óculos',
     description: 'Proteção e estilo'
   },
   {
-    icon: Scarf,
+    icon: Heart,
     title: 'Lenços',
     description: 'Toque de personalidade'
   }
@@ -219,7 +214,13 @@ export default function ModaPage() {
         <div ref={heroRef} className="bg-gradient-to-r from-[hsl(var(--pink))] via-[hsl(var(--neon))] to-[hsl(var(--azure))] py-20 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+            <div 
+              className="absolute inset-0" 
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                backgroundRepeat: 'repeat'
+              }}
+            />
           </div>
 
           <div className="container-responsive text-center relative z-10">

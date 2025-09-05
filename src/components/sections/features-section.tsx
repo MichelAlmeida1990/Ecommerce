@@ -71,7 +71,7 @@ export function FeaturesSection() {
   })
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700">
+    <section ref={ref} className="py-20 bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-gray-900 dark:to-black">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -80,10 +80,10 @@ export function FeaturesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             Nossos Diferenciais
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Recursos exclusivos que fazem a diferença na sua experiência de compra
           </p>
         </motion.div>
@@ -98,19 +98,19 @@ export function FeaturesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 h-full hover:bg-white/15 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
+              <div className="bg-gradient-to-br from-blue-200 to-purple-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-blue-300 dark:border-white/20 rounded-2xl p-6 h-full hover:from-blue-300 hover:to-purple-300 dark:hover:from-white/20 dark:hover:to-white/10 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Icon */}
                 <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${feature.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="h-7 w-7 text-white" />
+                  <feature.icon className="h-7 w-7 text-blue-600 dark:text-white" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">
                   {feature.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-800 dark:text-gray-300 text-sm leading-relaxed">
                   {feature.description}
                 </p>
 
@@ -129,10 +129,10 @@ export function FeaturesSection() {
           className="text-center mt-16"
         >
           <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Pronto para uma experiência única?
             </h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-700 dark:text-gray-300 mb-6">
               Descubra todos esses benefícios e muito mais
             </p>
             <motion.button

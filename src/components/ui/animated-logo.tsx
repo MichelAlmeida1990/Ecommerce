@@ -23,12 +23,13 @@ export function AnimatedLogo({ text, className = '' }: AnimatedLogoProps) {
     <>
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
         
         .animated-logo {
-          font-family: 'Orbitron', monospace;
-          font-weight: 900;
-          font-size: 1.5rem;
-          letter-spacing: 0.1em;
+          font-family: 'Dancing Script', cursive;
+          font-weight: 700;
+          font-size: 1.8rem;
+          letter-spacing: 0.05em;
           display: flex;
           flex-flow: row;
           align-items: center;
@@ -37,8 +38,8 @@ export function AnimatedLogo({ text, className = '' }: AnimatedLogoProps) {
         }
 
         .animated-logo.large {
-          font-size: 3.5rem;
-          letter-spacing: 0.15em;
+          font-size: 4rem;
+          letter-spacing: 0.1em;
         }
 
         .word-container {
@@ -47,10 +48,15 @@ export function AnimatedLogo({ text, className = '' }: AnimatedLogoProps) {
         }
 
         .letter {
-          color: #d9fdff;
-          text-shadow: 0 0 2rem #00f0ff, 0 0 4rem #00f0ff;
+          color: #1e40af;
+          text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           display: inline-block;
           transition: all 0.3s ease;
+        }
+
+        .dark .letter {
+          color: #93c5fd;
+          text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
         }
 
         .space {
@@ -109,58 +115,101 @@ export function AnimatedLogo({ text, className = '' }: AnimatedLogoProps) {
         @keyframes flicker {
           0% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           }
           5% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           }
           5.5% {
             opacity: 0.7;
-            text-shadow: 0 0 0.5rem #00f0ff, 0 0 1rem #00f0ff;
+            text-shadow: 0 0 0.3rem #3b82f6, 0 0 0.5rem #3b82f6;
           }
           6% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           }
           6.5% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           }
           7% {
             opacity: 0.8;
-            text-shadow: 0 0 0.8rem #00f0ff, 0 0 1.5rem #00f0ff;
+            text-shadow: 0 0 0.4rem #3b82f6, 0 0 0.8rem #3b82f6;
           }
           8% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
           }
           50% {
             opacity: 1;
-            text-shadow: 0 0 1.5rem #00f0ff, 0 0 3rem #00f0ff;
+            text-shadow: 0 0 0.8rem #3b82f6, 0 0 1.5rem #3b82f6;
           }
           100% {
             opacity: 1;
-            text-shadow: 0 0 1rem #00f0ff, 0 0 2rem #00f0ff;
+            text-shadow: 0 0 0.5rem #3b82f6, 0 0 1rem #3b82f6;
+          }
+        }
+
+        .dark .letter-2 {
+          animation: flickerDark 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes flickerDark {
+          0% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
+          }
+          5% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
+          }
+          5.5% {
+            opacity: 0.7;
+            text-shadow: 0 0 0.3rem #60a5fa, 0 0 0.5rem #60a5fa;
+          }
+          6% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
+          }
+          6.5% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
+          }
+          7% {
+            opacity: 0.8;
+            text-shadow: 0 0 0.4rem #60a5fa, 0 0 0.8rem #60a5fa;
+          }
+          8% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
+          }
+          50% {
+            opacity: 1;
+            text-shadow: 0 0 0.8rem #60a5fa, 0 0 1.5rem #60a5fa;
+          }
+          100% {
+            opacity: 1;
+            text-shadow: 0 0 0.5rem #60a5fa, 0 0 1rem #60a5fa;
           }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
           .animated-logo {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
           }
           .animated-logo.large {
-            font-size: 2.5rem;
+            font-size: 3rem;
           }
         }
 
         @media (max-width: 480px) {
           .animated-logo {
-            font-size: 1rem;
+            font-size: 1.2rem;
           }
           .animated-logo.large {
-            font-size: 2rem;
+            font-size: 2.5rem;
           }
         }
       `}</style>

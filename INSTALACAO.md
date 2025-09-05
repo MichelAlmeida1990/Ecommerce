@@ -255,3 +255,5 @@ npm run build
 **🎉 Parabéns! Você configurou com sucesso o E-commerce Top. Agora é hora de personalizar e expandir as funcionalidades!**
 
 
+
+

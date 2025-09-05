@@ -246,7 +246,7 @@ export function FeaturedProducts() {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-gray-900 dark:to-black">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -256,7 +256,7 @@ export function FeaturedProducts() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             Produtos em Destaque
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -270,7 +270,7 @@ export function FeaturedProducts() {
           {featuredProducts.map((product, index) => (
             <motion.div
               key={product.id}
-              className="product-card group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+              className="product-card group bg-gradient-to-br from-blue-200 to-purple-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-blue-300 dark:border-white/20 rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               onHoverStart={() => setHoveredProduct(product.id)}
               onHoverEnd={() => setHoveredProduct(null)}
               whileHover={{ 
@@ -279,12 +279,13 @@ export function FeaturedProducts() {
               }}
             >
               {/* Product Image */}
-              <div className="relative aspect-square overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+              <Link href={`/produto/${product.id}`} className="block">
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -324,14 +325,17 @@ export function FeaturedProducts() {
                     -{calculateDiscount(product.comparePrice, product.price)}%
                   </div>
                 )}
-              </div>
+                </div>
+              </Link>
 
               {/* Product Info */}
               <div className="p-4">
                 {/* Product Name */}
-                <h3 className="font-semibold text-white mb-2 group-hover:text-accent transition-colors">
-                  {product.name}
-                </h3>
+                <Link href={`/produto/${product.id}`}>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors hover:underline">
+                    {product.name}
+                  </h3>
+                </Link>
 
                 {/* Rating */}
                 <div className="flex items-center gap-2 mb-3">
@@ -354,7 +358,7 @@ export function FeaturedProducts() {
 
                 {/* Price */}
                 <div className="product-price flex items-center gap-2 mb-4">
-                  <span className="text-xl font-bold text-white">
+                  <span className="text-xl font-bold text-gray-900 dark:text-white">
                     {formatPrice(product.price)}
                   </span>
                   {product.isOnSale && (

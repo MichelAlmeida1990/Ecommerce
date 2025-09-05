@@ -177,7 +177,7 @@ export function CategoriesSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-black dark:to-gray-900">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -188,10 +188,10 @@ export function CategoriesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             Explore Nossas Categorias
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Descubra produtos incríveis organizados por categoria. 
             Encontre exatamente o que você procura com facilidade.
           </p>
@@ -209,7 +209,7 @@ export function CategoriesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <Link href={`/categorias/${category.slug}`}>
-                <div className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:border-blue-400 transition-all duration-300 shadow-2xl hover:shadow-blue-500/25">
+                <div className="relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl">
                   {/* Background Image */}
                   <div className="aspect-square relative overflow-hidden">
                     <img
@@ -219,7 +219,7 @@ export function CategoriesSection() {
                     />
                     
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/5" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     
                     {/* Icon */}
                     <div className="category-icon absolute top-4 left-4 text-4xl drop-shadow-lg">
@@ -231,16 +231,16 @@ export function CategoriesSection() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 bg-black/30 backdrop-blur-sm">
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors drop-shadow-sm">
+                  <div className="p-6 bg-white dark:bg-gray-800">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {category.name}
                     </h3>
-                    <p className="text-gray-300 mb-4">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {category.description}
                     </p>
                     
                     {/* CTA */}
-                    <div className="flex items-center text-blue-400 group-hover:text-blue-300 transition-colors">
+                    <div className="flex items-center text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                       <span className="text-sm font-semibold">Explorar</span>
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -267,7 +267,7 @@ export function CategoriesSection() {
         >
           <Link
             href="/categorias"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-azure text-black font-semibold rounded-full text-lg hover:from-accent/90 hover:to-azure/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-full text-lg hover:from-blue-700 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Ver Todas as Categorias
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />

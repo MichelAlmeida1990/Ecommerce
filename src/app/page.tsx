@@ -7,7 +7,6 @@ import { TestimonialsSection } from '@/components/sections/testimonials-section'
 import { BrandsSection } from '@/components/sections/brands-section'
 import { FeaturesSection } from '@/components/sections/features-section'
 import { PromoSection } from '@/components/sections/promo-section'
-import { BenefitsSection } from '@/components/sections/benefits-section'
 import { TrendingSection } from '@/components/sections/trending-section'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
@@ -35,11 +34,6 @@ export default function HomePage() {
       {/* Produtos em Destaque */}
       <Suspense fallback={<LoadingSpinner />}>
         <FeaturedProducts />
-      </Suspense>
-
-      {/* Benefícios e Garantias */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <BenefitsSection />
       </Suspense>
 
       {/* Recursos e Diferenciais */}

@@ -7,7 +7,11 @@ import { SearchBar } from '@/components/ui/search-bar'
 import { CartDrawer } from '@/components/cart/cart-drawer'
 import { UserMenu } from '@/components/auth/user-menu'
 import { AnimatedLogo } from '@/components/ui/animated-logo'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { useCart } from '@/hooks/use-cart'
+import { useGlowEffect } from '@/hooks/use-glow-effect'
+import { GlowButton } from '@/components/ui/glow-button'
+import { AdvancedHeart } from '@/components/ui/advanced-heart'
 import { cn } from '@/lib/utils'
 
 export function Header() {
@@ -34,13 +38,13 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md border-b border-white/20 shadow-lg shadow-black/10">
+      <header className="sticky top-0 z-50 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 transition-colors duration-300">
         <div className="container-responsive">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-3">
-                <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
                   <span className="text-white font-bold text-lg">M</span>
                 </div>
                 <AnimatedLogo text="Michel Store" className="text-2xl md:text-3xl" />
@@ -49,69 +53,73 @@ export function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-white/80 hover:text-white transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const glowRef = useGlowEffect<HTMLAnchorElement>()
+                return (
+                  <Link
+                    key={item.name}
+                    ref={glowRef}
+                    href={item.href}
+                    className="nav-glow relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group px-3 py-2 rounded-lg"
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                  </Link>
+                )
+              })}
             </nav>
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center space-x-4">
               {/* Search */}
-              <button
+              <GlowButton
                 onClick={toggleSearch}
-                className="p-2 text-white/70 hover:text-white transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-300 group"
                 aria-label="Buscar"
               >
-                <Search className="h-5 w-5" />
-              </button>
+                <Search className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+              </GlowButton>
+
+              {/* Theme Toggle */}
+              <ThemeToggle />
 
               {/* Wishlist */}
-              <Link
-                href="/favoritos"
-                className="p-2 text-white/70 hover:text-white transition-colors relative"
-                aria-label="Lista de desejos"
-              >
-                <Heart className="h-5 w-5" />
-              </Link>
+              <div className="button-glow rounded-lg">
+                <AdvancedHeart />
+              </div>
 
               {/* Orders */}
               {session && (
                 <Link
                   href="/pedidos"
-                  className="p-2 text-white/70 hover:text-white transition-colors"
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-all duration-300 group"
                   aria-label="Meus pedidos"
                 >
-                  <Package className="h-5 w-5" />
+                  <Package className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 </Link>
               )}
 
               {/* Cart */}
-              <button
+              <GlowButton
                 onClick={toggleCart}
-                className="p-2 text-white/70 hover:text-white transition-colors relative"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-300 group relative"
                 aria-label="Carrinho"
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                     {cartItemsCount > 99 ? '99+' : cartItemsCount}
                   </span>
                 )}
-              </button>
+              </GlowButton>
 
               {/* User Menu */}
               {session ? (
-                <UserMenu user={session.user} />
+                <UserMenu user={session} />
               ) : (
                 <Link
                   href="/login"
-                  className="btn btn-primary btn-sm"
+                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/25 hover:scale-105"
                 >
                   <User className="h-4 w-4 mr-2" />
                   Entrar
@@ -121,38 +129,38 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-2">
-              <button
+              <GlowButton
                 onClick={toggleSearch}
-                className="p-2 text-white/70 hover:text-white transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-300 group"
                 aria-label="Buscar"
               >
-                <Search className="h-5 w-5" />
-              </button>
+                <Search className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+              </GlowButton>
 
-              <button
+              <GlowButton
                 onClick={toggleCart}
-                className="p-2 text-white/70 hover:text-white transition-colors relative"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-300 group relative"
                 aria-label="Carrinho"
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                     {cartItemsCount > 99 ? '99+' : cartItemsCount}
                   </span>
                 )}
-              </button>
+              </GlowButton>
 
-              <button
+              <GlowButton
                 onClick={toggleMenu}
-                className="p-2 text-white/70 hover:text-white transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-300 group"
                 aria-label="Menu"
               >
                 {isMenuOpen ? (
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 ) : (
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 )}
-              </button>
+              </GlowButton>
             </div>
           </div>
 
@@ -186,7 +194,7 @@ export function Header() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <User className="h-4 w-4" />
-                        <span>Olá, {session.user.name}</span>
+                        <span>Olá, Usuário</span>
                       </div>
                       <div className="flex flex-col space-y-2">
                         <Link

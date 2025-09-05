@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Percent, Truck, Gift, Clock, Tag, Zap } from 'lucide-react'
+import Link from 'next/link'
 
 const promos = [
   {
@@ -46,7 +47,7 @@ export function PromoSection() {
   })
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
+    <section ref={ref} className="py-16 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -59,10 +60,10 @@ export function PromoSection() {
             <Zap className="h-4 w-4 text-yellow-400" />
             <span className="text-yellow-400 font-semibold text-sm">OFERTAS ESPECIAIS</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             Aproveite Nossas Promoções
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Ofertas imperdíveis que você não pode perder. Economize mais e aproveite melhor!
           </p>
         </motion.div>
@@ -77,19 +78,19 @@ export function PromoSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className={`relative ${promo.bgColor} backdrop-blur-sm border ${promo.borderColor} rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10`}>
+              <div className={`relative ${promo.bgColor} backdrop-blur-sm border ${promo.borderColor} rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 dark:from-pink-900/20 dark:via-purple-900/20 dark:to-blue-900/20`}>
                 {/* Icon */}
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${promo.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <promo.icon className="h-8 w-8 text-white" />
+                  <promo.icon className="h-8 w-8 text-blue-600 dark:text-white" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">
                   {promo.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-300 text-sm">
+                <p className="text-gray-800 dark:text-gray-300 text-sm">
                   {promo.description}
                 </p>
 
@@ -107,13 +108,15 @@ export function PromoSection() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-yellow-500/25"
-          >
-            Ver Todas as Ofertas
-          </motion.button>
+          <Link href="/ofertas">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-yellow-500/25"
+            >
+              Ver Todas as Ofertas
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

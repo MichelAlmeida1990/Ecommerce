@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { AnimatedGiftBox, AnimatedRocketTrail, AnimatedLightbulbGlow } from '@/components/ui/animated-icons'
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('')
@@ -235,7 +236,7 @@ export function NewsletterSection() {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-r from-primary/20 via-azure/20 to-neon/20">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-r from-primary/20 via-azure/20 to-neon/20 dark:from-gray-900 dark:via-black dark:to-gray-900">
       <div className="container-responsive">
         <div className="max-w-4xl mx-auto text-center">
           {/* Header */}
@@ -251,7 +252,7 @@ export function NewsletterSection() {
               <Mail className="w-10 h-10 text-black" />
             </div>
             
-            <h2 className="newsletter-text text-3xl md:text-4xl font-display font-bold text-white mb-4">
+            <h2 className="newsletter-text text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
               Fique por Dentro das Novidades
             </h2>
             
@@ -335,32 +336,54 @@ export function NewsletterSection() {
           >
             {[
               {
-                icon: '🎁',
+                icon: AnimatedGiftBox,
                 title: 'Ofertas Exclusivas',
-                description: 'Descontos especiais para assinantes'
+                description: 'Descontos especiais para assinantes',
+                color: 'from-pink-500 to-rose-500'
               },
               {
-                icon: '🚀',
+                icon: AnimatedRocketTrail,
                 title: 'Lançamentos Primeiro',
-                description: 'Seja o primeiro a conhecer novos produtos'
+                description: 'Seja o primeiro a conhecer novos produtos',
+                color: 'from-blue-500 to-cyan-500'
               },
               {
-                icon: '💡',
+                icon: AnimatedLightbulbGlow,
                 title: 'Dicas e Reviews',
-                description: 'Conteúdo exclusivo sobre produtos'
+                description: 'Conteúdo exclusivo sobre produtos',
+                color: 'from-yellow-500 to-orange-500'
               }
             ].map((benefit, index) => (
               <motion.div
                 key={benefit.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="text-center p-4"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="group"
               >
-                <div className="text-3xl mb-3">{benefit.icon}</div>
-                <h3 className="font-semibold text-white mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-6 text-center hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                  {/* Icon Container */}
+                  <div className="mb-4 flex justify-center">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                      <benefit.icon />
+                    </div>
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {benefit.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {benefit.description}
+                  </p>
+                  
+                  {/* Bottom Accent */}
+                  <div className={`mt-4 h-1 bg-gradient-to-r ${benefit.color} rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center`} />
+                </div>
               </motion.div>
             ))}
           </motion.div>

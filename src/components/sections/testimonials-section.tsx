@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, Quote, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 
 const testimonials = [
   {
     id: 1,
     name: 'Maria Silva',
     role: 'Cliente Fiel',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
     content: 'Excelente experiência de compra! Produtos de qualidade e entrega super rápida. Já é minha loja preferida para tecnologia.',
     rating: 5,
     product: 'Smartphone Galaxy Pro',
@@ -18,7 +18,7 @@ const testimonials = [
     id: 2,
     name: 'João Santos',
     role: 'Cliente Premium',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
     content: 'Atendimento excepcional e preços competitivos. O suporte ao cliente é realmente incrível. Recomendo para todos!',
     rating: 5,
     product: 'Notebook Ultra Book',
@@ -27,7 +27,7 @@ const testimonials = [
     id: 3,
     name: 'Ana Costa',
     role: 'Cliente Satisfeita',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
     content: 'Comprei várias vezes e sempre fico impressionada com a qualidade. O processo de checkout é simples e seguro.',
     rating: 5,
     product: 'Fone Bluetooth Premium',
@@ -36,7 +36,7 @@ const testimonials = [
     id: 4,
     name: 'Carlos Oliveira',
     role: 'Cliente Recorrente',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
     content: 'Melhor e-commerce que já usei! Interface intuitiva, produtos autênticos e frete grátis. Perfeito!',
     rating: 5,
     product: 'Tênis Esportivo Runner',
@@ -45,16 +45,44 @@ const testimonials = [
     id: 5,
     name: 'Fernanda Lima',
     role: 'Cliente Nova',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
     content: 'Primeira compra e adorei! Produto chegou antes do prazo e em perfeitas condições. Voltarei a comprar!',
     rating: 5,
     product: 'Camiseta Básica Premium',
+  },
+  {
+    id: 6,
+    name: 'Roberto Alves',
+    role: 'Cliente VIP',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
+    content: 'Serviço de primeira qualidade! Produtos originais, preços justos e entrega expressa. Super recomendo!',
+    rating: 5,
+    product: 'Smartwatch Pro Max',
+  },
+  {
+    id: 7,
+    name: 'Juliana Mendes',
+    role: 'Cliente Satisfeita',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
+    content: 'Atendimento humanizado e produtos de excelente qualidade. A melhor experiência de compra online que já tive!',
+    rating: 5,
+    product: 'Tablet Ultra HD',
+  },
+  {
+    id: 8,
+    name: 'Pedro Henrique',
+    role: 'Cliente Fiel',
+    avatar: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=200&h=200&fit=crop&crop=face&auto=format&q=80',
+    content: 'Loja confiável e produtos autênticos. O suporte é excepcional e sempre resolvem qualquer dúvida rapidamente.',
+    rating: 5,
+    product: 'Câmera Digital 4K',
   },
 ]
 
 export function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [imageLoading, setImageLoading] = useState<{ [key: number]: boolean }>({})
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const testimonialRef = useRef<HTMLDivElement>(null)
@@ -262,7 +290,7 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-gray-900 dark:to-black">
       <div className="container-responsive">
         {/* Section Header */}
         <motion.div
@@ -273,7 +301,7 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
             O Que Nossos Clientes Dizem
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -290,10 +318,10 @@ export function TestimonialsSection() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.5 }}
-              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center relative"
+              className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/30 dark:to-purple-500/30 backdrop-blur-sm border border-blue-300/50 dark:border-purple-300/50 rounded-2xl p-8 text-center relative"
             >
               {/* Quote Icon */}
-              <div className="absolute top-4 left-4 text-accent/20">
+              <div className="absolute top-4 left-4 text-blue-400/30 dark:text-purple-400/30">
                 <Quote className="w-8 h-8" />
               </div>
 
@@ -302,35 +330,58 @@ export function TestimonialsSection() {
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
                   <Star
                     key={i}
-                    className="testimonial-star w-6 h-6 text-yellow-400 fill-current mx-1"
+                    className="testimonial-star w-6 h-6 text-blue-400 dark:text-purple-400 fill-current mx-1"
                   />
                 ))}
               </div>
 
               {/* Content */}
-              <blockquote className="testimonial-content text-lg text-white mb-6 leading-relaxed">
+              <blockquote className="testimonial-content text-lg text-gray-900 dark:text-white mb-6 leading-relaxed">
                 "{testimonials[currentTestimonial].content}"
               </blockquote>
 
               {/* Product */}
-              <p className="testimonial-content text-sm text-accent mb-6">
+              <p className="testimonial-content text-sm text-blue-600 dark:text-purple-400 mb-6">
                 Produto: {testimonials[currentTestimonial].product}
               </p>
 
               {/* Author */}
               <div className="flex items-center justify-center">
-                <img
-                  src={testimonials[currentTestimonial].avatar}
-                  alt={testimonials[currentTestimonial].name}
-                  className="testimonial-avatar w-16 h-16 rounded-full border-4 border-accent/20 mr-4"
-                />
+                <div className="relative mr-4">
+                  {imageLoading[currentTestimonial] && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-full">
+                      <Loader2 className="w-6 h-6 animate-spin text-accent" />
+                    </div>
+                  )}
+                  <img
+                    src={testimonials[currentTestimonial].avatar}
+                    alt={testimonials[currentTestimonial].name}
+                    className="testimonial-avatar w-20 h-20 rounded-full border-4 border-accent/20 object-cover shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    loading="lazy"
+                    onLoad={() => setImageLoading(prev => ({ ...prev, [currentTestimonial]: false }))}
+                    onLoadStart={() => setImageLoading(prev => ({ ...prev, [currentTestimonial]: true }))}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[currentTestimonial].name)}&size=200&background=random&color=fff&bold=true`
+                      setImageLoading(prev => ({ ...prev, [currentTestimonial]: false }))
+                    }}
+                  />
+                  {/* Online Status Indicator */}
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                  </div>
+                </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-white">
+                  <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
                     {testimonials[currentTestimonial].name}
                   </h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground mb-1">
                     {testimonials[currentTestimonial].role}
                   </p>
+                  <div className="flex items-center text-xs text-blue-600 dark:text-purple-400">
+                    <span className="w-2 h-2 bg-blue-500 dark:bg-purple-500 rounded-full mr-2"></span>
+                    Cliente Verificado
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -341,31 +392,52 @@ export function TestimonialsSection() {
         <div ref={controlsRef} className="flex items-center justify-center gap-4 mb-8">
           <button
             onClick={prevTestimonial}
-            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-gradient-to-br from-gray-200 to-blue-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-900 dark:text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
             aria-label="Depoimento anterior"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
-          {/* Dots */}
-          <div className="flex gap-2">
-            {testimonials.map((_, index) => (
+          {/* Avatar Navigation */}
+          <div className="flex gap-3 mx-4">
+            {testimonials.map((testimonial, index) => (
               <button
                 key={index}
                 onClick={() => goToTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`relative transition-all duration-300 ${
                   index === currentTestimonial
-                    ? 'bg-accent scale-125'
-                    : 'bg-muted-foreground hover:bg-accent/50'
+                    ? 'scale-110'
+                    : 'hover:scale-105'
                 }`}
-                aria-label={`Ir para depoimento ${index + 1}`}
-              />
+                aria-label={`Ir para depoimento de ${testimonial.name}`}
+              >
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  className={`w-12 h-12 rounded-full border-2 object-cover transition-all duration-300 ${
+                    index === currentTestimonial
+                      ? 'border-accent shadow-lg'
+                      : 'border-gray-300 dark:border-gray-600 hover:border-accent/50'
+                  }`}
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement
+                    target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&size=200&background=random&color=fff&bold=true`
+                  }}
+                />
+                {/* Active indicator */}
+                {index === currentTestimonial && (
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                  </div>
+                )}
+              </button>
             ))}
           </div>
 
           <button
             onClick={nextTestimonial}
-            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-gradient-to-br from-gray-200 to-blue-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-gray-400 dark:border-white/20 rounded-full flex items-center justify-center text-gray-900 dark:text-white hover:bg-accent hover:text-black transition-all duration-300 hover:scale-110"
             aria-label="Próximo depoimento"
           >
             <ChevronRight className="w-6 h-6" />
