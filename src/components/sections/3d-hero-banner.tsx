@@ -471,14 +471,20 @@ export function Hero3DBanner() {
                     </motion.button>
                   </Link>
 
-                  <Link href="/produtos" className="group">
+                  <Link href="/ofertas" className="group">
                     <motion.button
-                      className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-400 text-white font-bold rounded-full text-lg hover:from-blue-400 hover:to-blue-300 transform hover:scale-105 transition-all duration-300 shadow-2xl"
+                      className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-full text-lg hover:from-orange-400 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 relative overflow-hidden"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Sparkles className="w-6 h-6 inline mr-2" />
-                      Ver Ofertas
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        initial={{ x: '-100%' }}
+                        whileHover={{ x: '100%' }}
+                        transition={{ duration: 0.6 }}
+                      />
+                      <Sparkles className="w-6 h-6 inline mr-2 relative z-10" />
+                      <span className="relative z-10">Ver Ofertas</span>
                     </motion.button>
                   </Link>
         </div>

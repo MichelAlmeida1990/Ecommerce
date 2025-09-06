@@ -1,91 +1,116 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowLeft, Heart, Share2, Star, Truck, Shield, RotateCcw, Plus, Minus, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useCart } from '@/hooks/use-cart'
+import { useAuth } from '@/contexts/auth-context'
+import { formatPrice } from '@/lib/utils'
+import { categoryProducts } from '@/components/sections/featured-products'
 
 interface Product {
   id: string
   name: string
+  slug: string
   price: number
-  originalPrice?: number
-  discount?: number
+  comparePrice: number
+  image: string
   rating: number
-  reviews: number
-  images: string[]
-  description: string
-  features: string[]
-  specifications: { [key: string]: string }
-  inStock: boolean
-  stock: number
-  category: string
-  brand: string
-  sku: string
+  reviewCount: number
+  isNew: boolean
+  isOnSale: boolean
+  tags: string[]
 }
 
-// Mock data - em produção viria de uma API
-const mockProduct: Product = {
-  id: '1',
-  name: 'Smartphone Samsung Galaxy S24 Ultra 256GB',
-  price: 4999.99,
-  originalPrice: 5999.99,
-  discount: 17,
-  rating: 4.8,
-  reviews: 1247,
-  images: [
-    'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=800&fit=crop&crop=center&auto=format&q=80',
-    'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=800&fit=crop&crop=center&auto=format&q=80',
-    'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&h=800&fit=crop&crop=center&auto=format&q=80',
-    'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&h=800&fit=crop&crop=center&auto=format&q=80'
-  ],
-  description: 'O Samsung Galaxy S24 Ultra é o smartphone mais avançado da Samsung, com tela Dynamic AMOLED 2X de 6.8", processador Snapdragon 8 Gen 3, câmera principal de 200MP e bateria de 5000mAh com carregamento rápido.',
-  features: [
-    'Tela Dynamic AMOLED 2X de 6.8" com 120Hz',
-    'Processador Snapdragon 8 Gen 3',
-    'Câmera principal de 200MP com zoom óptico 10x',
-    'Bateria de 5000mAh com carregamento rápido',
-    'Armazenamento de 256GB',
-    'Resistente à água IP68',
-    'S Pen incluído'
-  ],
-  specifications: {
-    'Tela': '6.8" Dynamic AMOLED 2X',
-    'Processador': 'Snapdragon 8 Gen 3',
-    'RAM': '12GB',
-    'Armazenamento': '256GB',
-    'Câmera Principal': '200MP',
-    'Câmera Frontal': '12MP',
-    'Bateria': '5000mAh',
-    'Sistema': 'Android 14',
-    'Conectividade': '5G, Wi-Fi 6E, Bluetooth 5.3',
-    'Resistência': 'IP68'
-  },
-  inStock: true,
-  stock: 15,
-  category: 'Eletrônicos',
-  brand: 'Samsung',
-  sku: 'SGS24U-256-BLK'
-}
-
-export default function ProductDetails({ params }: { params: { id: string } }) {
+export default function ProductDetails({ params }: { params: { slug: string } }) {
+  const router = useRouter()
+  const { addItem } = useCart()
+  const { isAuthenticated } = useAuth()
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [showFullDescription, setShowFullDescription] = useState(false)
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const [product, setProduct] = useState<Product | null>(null)
 
-  const product = mockProduct // Em produção, buscar por params.id
+  useEffect(() => {
+    // Buscar produto por slug em todas as categorias
+    const allProducts = [
+      ...categoryProducts.moda,
+      ...categoryProducts.eletronicos,
+      ...categoryProducts.esportes,
+      ...categoryProducts['casa-jardim']
+    ]
+    
+    const foundProduct = allProducts.find(p => p.slug === params.slug)
+    setProduct(foundProduct || null)
+  }, [params.slug])
 
-  const handleAddToCart = () => {
-    // Lógica para adicionar ao carrinho
-    console.log(`Adicionando ${quantity} unidades do produto ${product.id} ao carrinho`)
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Produto não encontrado
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            O produto que você está procurando não existe ou foi removido.
+          </p>
+          <Link
+            href="/"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Voltar ao início
+          </Link>
+        </div>
+      </div>
+    )
   }
 
-  const handleBuyNow = () => {
-    // Lógica para compra direta
-    console.log(`Comprando ${quantity} unidades do produto ${product.id}`)
+  const handleAddToCart = async () => {
+    setIsAddingToCart(true)
+    
+    // Simular delay de adição
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    // Adicionar ao carrinho
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+      })
+    }
+    
+    setIsAddingToCart(false)
   }
+
+  const handleBuyNow = async () => {
+    if (!isAuthenticated) {
+      // Redirecionar para login com redirect para checkout
+      router.push('/login?redirect=/checkout')
+      return
+    }
+
+    // Primeiro adicionar ao carrinho
+    await handleAddToCart()
+    
+    // Depois redirecionar para checkout
+    router.push('/checkout')
+  }
+
+  // Gerar imagens adicionais baseadas na imagem principal
+  const productImages = [
+    product.image,
+    product.image.replace('w=400&h=400', 'w=800&h=800'),
+    product.image.replace('w=400&h=400', 'w=800&h=800&fit=crop&crop=top'),
+    product.image.replace('w=400&h=400', 'w=800&h=800&fit=crop&crop=bottom')
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -128,24 +153,36 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
             {/* Main Image */}
             <div className="relative aspect-square bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
               <Image
-                src={product.images[selectedImage]}
+                src={productImages[selectedImage]}
                 alt={product.name}
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-500"
                 priority
               />
               
+              {/* Tags */}
+              <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                {product.tags.slice(0, 2).map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               {/* Discount Badge */}
-              {product.discount && (
-                <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                  -{product.discount}%
+              {product.isOnSale && (
+                <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  -{Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)}%
                 </div>
               )}
             </div>
 
             {/* Thumbnail Images */}
             <div className="grid grid-cols-4 gap-3">
-              {product.images.map((image, index) => (
+              {productImages.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
@@ -168,15 +205,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
 
           {/* Product Info */}
           <div className="space-y-6">
-            {/* Breadcrumb */}
-            <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-              <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
-              <span>/</span>
-              <Link href="/categorias/eletronicos" className="hover:text-blue-600 dark:hover:text-blue-400">{product.category}</Link>
-              <span>/</span>
-              <span className="text-gray-900 dark:text-gray-100">{product.brand}</span>
-            </div>
-
             {/* Product Title */}
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               {product.name}
@@ -196,7 +224,7 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
                   />
                 ))}
                 <span className="text-sm text-gray-600 dark:text-gray-300 ml-2">
-                  {product.rating} ({product.reviews} avaliações)
+                  {product.rating} ({product.reviewCount} avaliações)
                 </span>
               </div>
             </div>
@@ -205,27 +233,27 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
             <div className="space-y-2">
               <div className="flex items-center space-x-3">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  {formatPrice(product.price)}
                 </span>
-                {product.originalPrice && (
+                {product.isOnSale && (
                   <span className="text-lg text-gray-500 dark:text-gray-400 line-through">
-                    R$ {product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    {formatPrice(product.comparePrice)}
                   </span>
                 )}
               </div>
               
-              {product.discount && (
+              {product.isOnSale && (
                 <p className="text-green-600 dark:text-green-400 font-medium">
-                  Economize R$ {(product.originalPrice! - product.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  Economize {formatPrice(product.comparePrice - product.price)}
                 </p>
               )}
             </div>
 
             {/* Stock Status */}
             <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`} />
-              <span className={`text-sm font-medium ${product.inStock ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                {product.inStock ? `${product.stock} unidades disponíveis` : 'Fora de estoque'}
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                Em estoque
               </span>
             </div>
 
@@ -233,7 +261,10 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Descrição</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                {showFullDescription ? product.description : `${product.description.substring(0, 200)}...`}
+                {showFullDescription 
+                  ? `Produto de alta qualidade com excelente custo-benefício. ${product.name} oferece o melhor em termos de performance e durabilidade. Ideal para quem busca qualidade e praticidade.`
+                  : `Produto de alta qualidade com excelente custo-benefício. ${product.name} oferece o melhor em termos de performance e durabilidade...`
+                }
               </p>
               <button
                 onClick={() => setShowFullDescription(!showFullDescription)}
@@ -257,7 +288,7 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
                   {quantity}
                 </span>
                 <button
-                  onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  onClick={() => setQuantity(quantity + 1)}
                   className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
                   <Plus className="h-4 w-4" />
@@ -269,33 +300,29 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
             <div className="space-y-3">
               <button
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
+                disabled={isAddingToCart}
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center space-x-2"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span>Adicionar ao Carrinho</span>
+                {isAddingToCart ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Adicionando...</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-5 w-5" />
+                    <span>Adicionar ao Carrinho</span>
+                  </>
+                )}
               </button>
               
               <button
                 onClick={handleBuyNow}
-                disabled={!product.inStock}
+                disabled={isAddingToCart}
                 className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center space-x-2"
               >
                 <span>Comprar Agora</span>
               </button>
-            </div>
-
-            {/* Features */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Principais Características</h3>
-              <ul className="space-y-2">
-                {product.features.map((feature, index) => (
-                  <li key={index} className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-gray-600 dark:text-gray-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             {/* Benefits */}
@@ -323,21 +350,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
                   <p className="text-sm text-gray-600 dark:text-gray-300">30 dias</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Specifications */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Especificações Técnicas</h2>
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(product.specifications).map(([key, value]) => (
-                <div key={key} className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
-                  <span className="font-medium text-gray-900 dark:text-white">{key}</span>
-                  <span className="text-gray-600 dark:text-gray-300">{value}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>

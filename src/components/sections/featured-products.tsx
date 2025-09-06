@@ -2,12 +2,15 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heart, ShoppingCart, Star, ArrowRight } from 'lucide-react'
 import { useCart } from '@/hooks/use-cart'
+import { useAuth } from '@/contexts/auth-context'
 import { formatPrice, calculateDiscount } from '@/lib/utils'
 
-const featuredProducts = [
+// Produtos padrão (para a página inicial)
+const defaultProducts = [
   {
     id: '1',
     name: 'Smartphone Galaxy Pro',
@@ -114,8 +117,448 @@ const featuredProducts = [
   },
 ]
 
-export function FeaturedProducts() {
+// Produtos específicos por categoria
+export const categoryProducts = {
+  moda: [
+    {
+      id: 'm1',
+      name: 'Vestido Elegante Floral',
+      slug: 'vestido-elegante-floral',
+      price: 189.99,
+      comparePrice: 249.99,
+      image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 156,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'm2',
+      name: 'Blusa de Seda Premium',
+      slug: 'blusa-seda-premium',
+      price: 129.99,
+      comparePrice: 179.99,
+      image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 89,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Frete Grátis'],
+    },
+    {
+      id: 'm3',
+      name: 'Calça Jeans Skinny',
+      slug: 'calca-jeans-skinny',
+      price: 99.99,
+      comparePrice: 139.99,
+      image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 203,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'm4',
+      name: 'Bolsa de Couro Legítimo',
+      slug: 'bolsa-couro-legitimo',
+      price: 299.99,
+      comparePrice: 399.99,
+      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
+      rating: 4.9,
+      reviewCount: 67,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção'],
+    },
+    {
+      id: 'm5',
+      name: 'Sapato Social Masculino',
+      slug: 'sapato-social-masculino',
+      price: 199.99,
+      comparePrice: 279.99,
+      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop',
+      rating: 4.5,
+      reviewCount: 134,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'm6',
+      name: 'Óculos de Sol Designer',
+      slug: 'oculos-sol-designer',
+      price: 159.99,
+      comparePrice: 219.99,
+      image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 98,
+      isNew: true,
+      isOnSale: false,
+      tags: ['Novo'],
+    },
+    {
+      id: 'm7',
+      name: 'Relógio de Pulso Elegante',
+      slug: 'relogio-pulso-elegante',
+      price: 249.99,
+      comparePrice: 329.99,
+      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 76,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'm8',
+      name: 'Jaqueta de Couro Vintage',
+      slug: 'jaqueta-couro-vintage',
+      price: 399.99,
+      comparePrice: 499.99,
+      image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 112,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção'],
+    },
+  ],
+  eletronicos: [
+    {
+      id: 'e1',
+      name: 'iPhone 15 Pro Max',
+      slug: 'iphone-15-pro-max',
+      price: 6999.99,
+      comparePrice: 7999.99,
+      image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop',
+      rating: 4.9,
+      reviewCount: 234,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'e2',
+      name: 'MacBook Pro M3',
+      slug: 'macbook-pro-m3',
+      price: 12999.99,
+      comparePrice: 14999.99,
+      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 89,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção'],
+    },
+    {
+      id: 'e3',
+      name: 'AirPods Pro 2ª Geração',
+      slug: 'airpods-pro-2gen',
+      price: 1899.99,
+      comparePrice: 2199.99,
+      image: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 156,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'e4',
+      name: 'iPad Air 5ª Geração',
+      slug: 'ipad-air-5gen',
+      price: 3999.99,
+      comparePrice: 4599.99,
+      image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 98,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Frete Grátis'],
+    },
+    {
+      id: 'e5',
+      name: 'Apple Watch Series 9',
+      slug: 'apple-watch-series-9',
+      price: 2999.99,
+      comparePrice: 3499.99,
+      image: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 167,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção'],
+    },
+    {
+      id: 'e6',
+      name: 'Samsung Galaxy S24 Ultra',
+      slug: 'samsung-galaxy-s24-ultra',
+      price: 5999.99,
+      comparePrice: 6999.99,
+      image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 189,
+      isNew: true,
+      isOnSale: false,
+      tags: ['Novo'],
+    },
+    {
+      id: 'e7',
+      name: 'Sony WH-1000XM5',
+      slug: 'sony-wh1000xm5',
+      price: 1999.99,
+      comparePrice: 2399.99,
+      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
+      rating: 4.9,
+      reviewCount: 145,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'e8',
+      name: 'Dell XPS 13 Plus',
+      slug: 'dell-xps-13-plus',
+      price: 8999.99,
+      comparePrice: 10999.99,
+      image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop',
+      rating: 4.5,
+      reviewCount: 76,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção'],
+    },
+  ],
+  esportes: [
+    {
+      id: 's1',
+      name: 'Tênis Nike Air Max 270',
+      slug: 'tenis-nike-air-max-270',
+      price: 599.99,
+      comparePrice: 799.99,
+      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 234,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 's2',
+      name: 'Bicicleta Mountain Bike',
+      slug: 'bicicleta-mountain-bike',
+      price: 1999.99,
+      comparePrice: 2499.99,
+      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 89,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Frete Grátis'],
+    },
+    {
+      id: 's3',
+      name: 'Kit Academia Completo',
+      slug: 'kit-academia-completo',
+      price: 1299.99,
+      comparePrice: 1599.99,
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 156,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 's4',
+      name: 'Raquete de Tênis Profissional',
+      slug: 'raquete-tenis-profissional',
+      price: 899.99,
+      comparePrice: 1199.99,
+      image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=400&fit=crop',
+      rating: 4.9,
+      reviewCount: 67,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção'],
+    },
+    {
+      id: 's5',
+      name: 'Bola de Futebol Oficial',
+      slug: 'bola-futebol-oficial',
+      price: 199.99,
+      comparePrice: 279.99,
+      image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop',
+      rating: 4.5,
+      reviewCount: 134,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 's6',
+      name: 'Roupa de Natação Speedo',
+      slug: 'roupa-natacao-speedo',
+      price: 159.99,
+      comparePrice: 219.99,
+      image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 98,
+      isNew: true,
+      isOnSale: false,
+      tags: ['Novo'],
+    },
+    {
+      id: 's7',
+      name: 'Esteira Elétrica Premium',
+      slug: 'esteira-eletrica-premium',
+      price: 2499.99,
+      comparePrice: 3299.99,
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 76,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 's8',
+      name: 'Mochila de Trekking',
+      slug: 'mochila-trekking',
+      price: 399.99,
+      comparePrice: 499.99,
+      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 112,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção'],
+    },
+  ],
+  'casa-jardim': [
+    {
+      id: 'c1',
+      name: 'Aspirador de Pó Robô',
+      slug: 'aspirador-po-robo',
+      price: 1299.99,
+      comparePrice: 1599.99,
+      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 234,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'c2',
+      name: 'Panela de Pressão Elétrica',
+      slug: 'panela-pressao-eletrica',
+      price: 399.99,
+      comparePrice: 499.99,
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 89,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Frete Grátis'],
+    },
+    {
+      id: 'c3',
+      name: 'Jogo de Panelas Antiaderente',
+      slug: 'jogo-panelas-antiaderente',
+      price: 299.99,
+      comparePrice: 399.99,
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 156,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'c4',
+      name: 'Vaso Decorativo Cerâmica',
+      slug: 'vaso-decorativo-ceramica',
+      price: 89.99,
+      comparePrice: 129.99,
+      image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop',
+      rating: 4.9,
+      reviewCount: 67,
+      isNew: true,
+      isOnSale: true,
+      tags: ['Novo', 'Promoção'],
+    },
+    {
+      id: 'c5',
+      name: 'Cafeteira Expresso Automática',
+      slug: 'cafeteira-expresso-automatica',
+      price: 899.99,
+      comparePrice: 1199.99,
+      image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=400&fit=crop',
+      rating: 4.5,
+      reviewCount: 134,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'c6',
+      name: 'Kit Ferramentas Básico',
+      slug: 'kit-ferramentas-basico',
+      price: 159.99,
+      comparePrice: 219.99,
+      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=400&fit=crop',
+      rating: 4.7,
+      reviewCount: 98,
+      isNew: true,
+      isOnSale: false,
+      tags: ['Novo'],
+    },
+    {
+      id: 'c7',
+      name: 'Luminária de Mesa LED',
+      slug: 'luminaria-mesa-led',
+      price: 199.99,
+      comparePrice: 279.99,
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+      rating: 4.8,
+      reviewCount: 76,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção', 'Mais Vendido'],
+    },
+    {
+      id: 'c8',
+      name: 'Sementes de Hortaliças',
+      slug: 'sementes-hortalicas',
+      price: 29.99,
+      comparePrice: 39.99,
+      image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop',
+      rating: 4.6,
+      reviewCount: 112,
+      isNew: false,
+      isOnSale: true,
+      tags: ['Promoção'],
+    },
+  ],
+}
+
+interface FeaturedProductsProps {
+  products?: typeof defaultProducts
+  title?: string
+  description?: string
+}
+
+export function FeaturedProducts({ 
+  products = defaultProducts, 
+  title = "Produtos em Destaque",
+  description = "Descubra nossos produtos mais populares com preços imperdíveis. Qualidade garantida e entrega rápida em todo o Brasil."
+}: FeaturedProductsProps) {
+  const router = useRouter()
   const { addItem } = useCart()
+  const { isAuthenticated } = useAuth()
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -231,7 +674,12 @@ export function FeaturedProducts() {
     }
   }, [])
 
-  const handleAddToCart = (product: typeof featuredProducts[0]) => {
+  const handleAddToCart = (product: typeof products[0]) => {
+    if (!isAuthenticated) {
+      router.push('/login?redirect=/')
+      return
+    }
+
     addItem({
       id: product.id,
       name: product.name,
@@ -257,20 +705,19 @@ export function FeaturedProducts() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
-            Produtos em Destaque
+            {title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Descubra nossos produtos mais populares com preços imperdíveis. 
-            Qualidade garantida e entrega rápida em todo o Brasil.
+            {description}
           </p>
         </motion.div>
 
         {/* Products Grid */}
         <div ref={productsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <motion.div
               key={product.id}
-              className="product-card group bg-gradient-to-br from-blue-200 to-purple-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-blue-300 dark:border-white/20 rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+              className="product-card group bg-gradient-to-br from-blue-200 to-purple-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-blue-300 dark:border-white/20 rounded-xl overflow-hidden hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               onHoverStart={() => setHoveredProduct(product.id)}
               onHoverEnd={() => setHoveredProduct(null)}
               whileHover={{ 
@@ -279,7 +726,7 @@ export function FeaturedProducts() {
               }}
             >
               {/* Product Image */}
-              <Link href={`/produto/${product.id}`} className="block">
+              <Link href={`/produto/${product.slug}`} className="block">
                 <div className="relative aspect-square overflow-hidden">
                   <img
                     src={product.image}
@@ -295,7 +742,7 @@ export function FeaturedProducts() {
                   {product.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="product-tag px-2 py-1 bg-accent text-black text-xs font-semibold rounded-full"
+                      className="product-tag px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold rounded-full"
                     >
                       {tag}
                     </span>
@@ -313,7 +760,7 @@ export function FeaturedProducts() {
                   
                   <button
                     onClick={() => handleAddToCart(product)}
-                    className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-black hover:bg-accent/80 transition-colors"
+                    className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
                   >
                     <ShoppingCart className="w-5 h-5" />
                   </button>
@@ -331,8 +778,8 @@ export function FeaturedProducts() {
               {/* Product Info */}
               <div className="p-4">
                 {/* Product Name */}
-                <Link href={`/produto/${product.id}`}>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors hover:underline">
+                <Link href={`/produto/${product.slug}`}>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors hover:underline">
                     {product.name}
                   </h3>
                 </Link>
@@ -391,7 +838,7 @@ export function FeaturedProducts() {
         >
           <Link
             href="/produtos"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-azure text-black font-semibold rounded-full text-lg hover:from-accent/90 hover:to-azure/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-full text-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Ver Todos os Produtos
             <ArrowRight className="ml-2 w-5 h-5" />

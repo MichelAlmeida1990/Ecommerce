@@ -169,7 +169,7 @@ export default function OfertasPage() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {ofertas.map((oferta, index) => (
             <motion.div
               key={oferta.id}
@@ -203,20 +203,20 @@ export default function OfertasPage() {
                   <button className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                     <Heart className="w-5 h-5" />
                   </button>
-                  <button className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-black hover:bg-accent/80 transition-colors">
+                  <button className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors">
                     <ShoppingCart className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
               {/* Product Info */}
-              <div className="p-6">
+              <div className="p-4">
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-3">
+                <div className="flex flex-wrap gap-1 mb-2">
                   {oferta.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="px-2 py-1 bg-accent/20 text-accent text-xs font-semibold rounded-full"
+                      className="px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold rounded-full"
                     >
                       {tag}
                     </span>
@@ -224,12 +224,12 @@ export default function OfertasPage() {
                 </div>
 
                 {/* Product Name */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-accent transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {oferta.name}
                 </h3>
 
                 {/* Rating */}
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-3">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -248,11 +248,11 @@ export default function OfertasPage() {
                 </div>
 
                 {/* Price */}
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xl font-bold text-gray-900 dark:text-white">
                     {formatPrice(oferta.price)}
                   </span>
-                  <span className="text-lg text-gray-500 line-through">
+                  <span className="text-sm text-gray-500 line-through">
                     {formatPrice(oferta.originalPrice)}
                   </span>
                 </div>
@@ -261,7 +261,7 @@ export default function OfertasPage() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   Adicionar ao Carrinho

@@ -78,7 +78,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div className="flex items-center space-x-3">
-                <ShoppingCart className="h-6 w-6 text-accent" />
+                <ShoppingCart className="h-6 w-6 text-blue-600" />
                 <h2 className="text-xl font-semibold text-foreground">
                   Carrinho ({itemCount})
                 </h2>
@@ -139,7 +139,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             {item.variant.name}: {item.variant.value}
                           </p>
                         )}
-                        <p className="text-sm font-medium text-accent">
+                        <p className="text-sm font-medium text-blue-600">
                           {formatPrice(item.price)}
                         </p>
                       </div>
@@ -191,14 +191,14 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Frete:</span>
-                    <span className="font-medium text-accent">
+                    <span className="font-medium text-blue-600">
                       {total >= 99 ? 'Grátis' : formatPrice(9.99)}
                     </span>
                   </div>
                   <div className="border-t border-border pt-2">
                     <div className="flex justify-between text-lg font-semibold">
                       <span>Total:</span>
-                      <span className="text-accent">
+                      <span className="text-blue-600">
                         {formatPrice(total >= 99 ? total : total + 9.99)}
                       </span>
                     </div>
@@ -210,7 +210,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <Link
                     href="/checkout"
                     onClick={handleClose}
-                    className="btn btn-accent w-full group"
+                    className="btn btn-primary w-full group"
                   >
                     Finalizar Compra
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -239,6 +239,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     </AnimatePresence>
   )
 }
+
 
 
 

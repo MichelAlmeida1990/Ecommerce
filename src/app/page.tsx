@@ -9,10 +9,19 @@ import { FeaturesSection } from '@/components/sections/features-section'
 import { PromoSection } from '@/components/sections/promo-section'
 import { TrendingSection } from '@/components/sections/trending-section'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
+import { StructuredData } from '@/components/seo/structured-data'
+import { generateOrganizationSchema, generateWebsiteSchema, generateLocalBusinessSchema } from '@/lib/structured-data'
 
 export default function HomePage() {
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateWebsiteSchema(),
+    generateLocalBusinessSchema()
+  ]
+
   return (
     <div className="min-h-screen">
+      <StructuredData data={structuredData} />
       {/* Hero Section - Banner 3D Interativo */}
       <Hero3DBanner />
 

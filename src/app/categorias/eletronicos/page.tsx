@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { FeaturedProducts } from '@/components/sections/featured-products'
+import { FeaturedProducts, categoryProducts } from '@/components/sections/featured-products'
 import { Smartphone, Laptop, Headphones, Tablet, Watch, Camera } from 'lucide-react'
 
 const categoryFeatures = [
@@ -239,7 +239,11 @@ export default function EletronicosPage() {
             >
               Produtos em Destaque
             </motion.h2>
-            <FeaturedProducts />
+            <FeaturedProducts 
+              products={categoryProducts.eletronicos}
+              title="Eletrônicos em Destaque"
+              description="Tecnologia de última geração com os melhores preços do mercado. Smartphones, notebooks, fones de ouvido e muito mais!"
+            />
           </div>
         </div>
       </div>

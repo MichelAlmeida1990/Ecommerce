@@ -9,6 +9,7 @@ import { UserMenu } from '@/components/auth/user-menu'
 import { AnimatedLogo } from '@/components/ui/animated-logo'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { useCart } from '@/hooks/use-cart'
+import { useAuth } from '@/contexts/auth-context'
 import { useGlowEffect } from '@/hooks/use-glow-effect'
 import { GlowButton } from '@/components/ui/glow-button'
 import { AdvancedHeart } from '@/components/ui/advanced-heart'
@@ -18,7 +19,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
-  const session = null // Autenticação desabilitada
+  const { user, isAuthenticated, logout } = useAuth()
   const { items } = useCart()
 
   const cartItemsCount = items.reduce((total, item) => total + item.quantity, 0)
@@ -89,7 +90,7 @@ export function Header() {
               </div>
 
               {/* Orders */}
-              {session && (
+              {isAuthenticated && (
                 <Link
                   href="/pedidos"
                   className="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-all duration-300 group"
@@ -114,8 +115,18 @@ export function Header() {
               </GlowButton>
 
               {/* User Menu */}
-              {session ? (
-                <UserMenu user={session} />
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                    Olá, {user?.name}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="inline-flex items-center px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                  >
+                    Sair
+                  </button>
+                </div>
               ) : (
                 <Link
                   href="/login"
@@ -190,11 +201,11 @@ export function Header() {
                 
                 {/* Mobile User Actions */}
                 <div className="pt-4 border-t border-border">
-                  {session ? (
+                  {isAuthenticated ? (
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <User className="h-4 w-4" />
-                        <span>Olá, Usuário</span>
+                        <span>Olá, {user?.name}</span>
                       </div>
                       <div className="flex flex-col space-y-2">
                         <Link
@@ -220,7 +231,7 @@ export function Header() {
                         </Link>
                         <button
                           onClick={() => {
-                            console.log('Sign out clicked')
+                            logout()
                             setIsMenuOpen(false)
                           }}
                           className="text-sm text-white/70 hover:text-white transition-colors text-left"

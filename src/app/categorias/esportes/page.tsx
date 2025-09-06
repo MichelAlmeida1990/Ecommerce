@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { FeaturedProducts } from '@/components/sections/featured-products'
+import { FeaturedProducts, categoryProducts } from '@/components/sections/featured-products'
 import { Dumbbell, Shirt, Trophy, Target, Zap, Footprints } from 'lucide-react'
 
 const categoryFeatures = [
@@ -298,7 +298,11 @@ export default function EsportesPage() {
             >
               Produtos em Destaque
             </motion.h2>
-            <FeaturedProducts />
+            <FeaturedProducts 
+              products={categoryProducts.esportes}
+              title="Produtos Esportivos em Destaque"
+              description="Performance e qualidade para todos os esportes. Equipamentos, roupas esportivas e acessórios para maximizar seu potencial."
+            />
           </div>
         </div>
       </div>

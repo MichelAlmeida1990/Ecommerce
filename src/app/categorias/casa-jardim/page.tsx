@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { FeaturedProducts } from '@/components/sections/featured-products'
+import { FeaturedProducts, categoryProducts } from '@/components/sections/featured-products'
 import { Home, Sofa, Lamp, Utensils, Paintbrush, TreePine } from 'lucide-react'
 
 const categoryFeatures = [
@@ -213,10 +213,10 @@ export default function CasaJardimPage() {
   }, [])
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-surface">
+    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       <div className="pt-20">
         {/* Hero da Categoria */}
-        <div ref={heroRef} className="bg-gradient-to-r from-[hsl(var(--green))] via-[hsl(var(--accent))] to-[hsl(var(--brown))] py-20 relative overflow-hidden">
+        <div ref={heroRef} className="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 py-20 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div 
@@ -265,14 +265,14 @@ export default function CasaJardimPage() {
               {categoryFeatures.map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  className="category-feature bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer"
+                  className="category-feature bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30 hover:bg-white/30 hover:scale-105 transition-all duration-300 group cursor-pointer shadow-lg"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-accent to-azure rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="w-6 h-6 text-black" />
+                  <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    <feature.icon className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-sm font-semibold text-white mb-1">
                     {feature.title}
@@ -290,7 +290,7 @@ export default function CasaJardimPage() {
         <div ref={productsRef} className="py-20">
           <div className="container-responsive">
             <motion.h2
-              className="text-3xl font-bold text-white mb-12 text-center"
+              className="text-3xl font-bold text-slate-800 mb-12 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -298,7 +298,11 @@ export default function CasaJardimPage() {
             >
               Produtos em Destaque
             </motion.h2>
-            <FeaturedProducts />
+            <FeaturedProducts 
+              products={categoryProducts['casa-jardim']}
+              title="Produtos para Casa e Jardim"
+              description="Transforme seu lar com nossos produtos. Móveis, decoração e itens para casa que fazem a diferença no seu dia a dia."
+            />
           </div>
         </div>
       </div>
