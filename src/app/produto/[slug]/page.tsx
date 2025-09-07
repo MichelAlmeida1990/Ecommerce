@@ -107,9 +107,9 @@ export default function ProductDetails({ params }: { params: { slug: string } })
   // Gerar imagens adicionais baseadas na imagem principal
   const productImages = [
     product.image,
-    product.image.replace('w=400&h=400', 'w=800&h=800'),
-    product.image.replace('w=400&h=400', 'w=800&h=800&fit=crop&crop=top'),
-    product.image.replace('w=400&h=400', 'w=800&h=800&fit=crop&crop=bottom')
+    product.image, // Para imagens locais, usamos a mesma imagem
+    product.image,
+    product.image
   ]
 
   return (
@@ -158,6 +158,8 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-500"
                 priority
+                loading="eager"
+                quality={85}
               />
               
               {/* Tags */}
@@ -197,6 +199,8 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                     alt={`${product.name} - Imagem ${index + 1}`}
                     fill
                     className="object-cover"
+                    loading="lazy"
+                    quality={75}
                   />
                 </button>
               ))}

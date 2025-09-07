@@ -185,3 +185,4 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
 
 
 
+

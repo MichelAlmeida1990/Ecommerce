@@ -64,7 +64,7 @@ const products = [
     name: 'Cadeira Gamer',
     price: 899.90,
     originalPrice: 1199.90,
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop',
+    image: '/images/cadeira gamer.jpg',
     rating: 4.8,
     reviews: 67,
     category: 'Casa e Jardim',

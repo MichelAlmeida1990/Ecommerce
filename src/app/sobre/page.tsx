@@ -79,7 +79,7 @@ export default function SobrePage() {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Sobre a Michel Store
+              Sobre a Versiory Store
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8">
               Sua loja online de confiança desde 2020
@@ -180,7 +180,7 @@ export default function SobrePage() {
               Nossa Equipe
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Conheça as pessoas por trás da Michel Store.
+              Conheça as pessoas por trás da Versiory Store.
             </p>
           </motion.div>
 
@@ -226,7 +226,7 @@ export default function SobrePage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Por que escolher a Michel Store?
+              Por que escolher a Versiory Store?
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Oferecemos uma experiência de compra única e diferenciada.

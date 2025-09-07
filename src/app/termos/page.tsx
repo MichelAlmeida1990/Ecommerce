@@ -36,7 +36,7 @@ export default function TermosPage() {
                 1. Aceitação dos Termos
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Ao acessar e usar o site da Michel Store, você concorda em cumprir e estar vinculado aos seguintes termos e condições de uso. Se você não concordar com qualquer parte destes termos, não deve usar nosso site.
+                Ao acessar e usar o site da Versiory Store, você concorda em cumprir e estar vinculado aos seguintes termos e condições de uso. Se você não concordar com qualquer parte destes termos, não deve usar nosso site.
               </p>
             </section>
 
@@ -128,7 +128,7 @@ export default function TermosPage() {
                 7. Limitação de Responsabilidade
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                A Michel Store não se responsabiliza por danos indiretos, lucros cessantes ou outros prejuízos decorrentes do uso do site ou produtos, exceto nos casos previstos em lei.
+                A Versiory Store não se responsabiliza por danos indiretos, lucros cessantes ou outros prejuízos decorrentes do uso do site ou produtos, exceto nos casos previstos em lei.
               </p>
             </section>
 
@@ -137,7 +137,7 @@ export default function TermosPage() {
                 8. Propriedade Intelectual
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Todo o conteúdo do site, incluindo textos, imagens, logotipos e design, é propriedade da Michel Store e está protegido por leis de direitos autorais.
+                Todo o conteúdo do site, incluindo textos, imagens, logotipos e design, é propriedade da Versiory Store e está protegido por leis de direitos autorais.
               </p>
             </section>
 

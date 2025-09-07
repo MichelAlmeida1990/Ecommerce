@@ -55,12 +55,9 @@ export function Header() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-3">
-                <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                  <span className="text-white font-bold text-lg">M</span>
-                </div>
+              <Link href="/" className="flex items-center">
                 <AnimatedLogo
-                  text="Michel Store"
+                  text="Versiory Store"
                   className="text-2xl md:text-3xl"
                 />
               </Link>

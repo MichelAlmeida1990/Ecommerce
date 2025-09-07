@@ -1,7 +1,7 @@
 {
-  "name": "ecommerce-top",
+  "name": "versiory-store",
   "version": "1.0.0",
-  "description": "E-commerce completo seguindo roadmap estruturado com ferramentas gratuitas",
+  "description": "Versiory Store - E-commerce completo com produtos de qualidade",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",

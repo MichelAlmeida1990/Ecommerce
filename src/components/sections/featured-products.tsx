@@ -139,7 +139,7 @@ export const categoryProducts = {
       slug: 'blusa-seda-premium',
       price: 129.99,
       comparePrice: 179.99,
-      image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop',
+      image: '/images/seda.jpg',
       rating: 4.7,
       reviewCount: 89,
       isNew: false,
@@ -165,7 +165,7 @@ export const categoryProducts = {
       slug: 'bolsa-couro-legitimo',
       price: 299.99,
       comparePrice: 399.99,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
+      image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop',
       rating: 4.9,
       reviewCount: 67,
       isNew: true,
@@ -351,7 +351,7 @@ export const categoryProducts = {
       slug: 'bicicleta-mountain-bike',
       price: 1999.99,
       comparePrice: 2499.99,
-      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop',
+      image: '/images/bike.png',
       rating: 4.7,
       reviewCount: 89,
       isNew: false,
@@ -364,7 +364,7 @@ export const categoryProducts = {
       slug: 'kit-academia-completo',
       price: 1299.99,
       comparePrice: 1599.99,
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+      image: '/images/academia.jpg',
       rating: 4.6,
       reviewCount: 156,
       isNew: false,
@@ -377,7 +377,7 @@ export const categoryProducts = {
       slug: 'raquete-tenis-profissional',
       price: 899.99,
       comparePrice: 1199.99,
-      image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=400&fit=crop',
+      image: '/images/raquete.jpg',
       rating: 4.9,
       reviewCount: 67,
       isNew: true,
@@ -390,7 +390,7 @@ export const categoryProducts = {
       slug: 'bola-futebol-oficial',
       price: 199.99,
       comparePrice: 279.99,
-      image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop',
+      image: '/images/bola.jpg',
       rating: 4.5,
       reviewCount: 134,
       isNew: false,
@@ -403,7 +403,7 @@ export const categoryProducts = {
       slug: 'roupa-natacao-speedo',
       price: 159.99,
       comparePrice: 219.99,
-      image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=400&fit=crop',
+      image: '/images/natacao.jpg',
       rating: 4.7,
       reviewCount: 98,
       isNew: true,
@@ -416,7 +416,7 @@ export const categoryProducts = {
       slug: 'esteira-eletrica-premium',
       price: 2499.99,
       comparePrice: 3299.99,
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+      image: '/images/esteira.jpg',
       rating: 4.8,
       reviewCount: 76,
       isNew: false,
@@ -429,7 +429,7 @@ export const categoryProducts = {
       slug: 'mochila-trekking',
       price: 399.99,
       comparePrice: 499.99,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop',
+      image: '/images/trekling.jpg',
       rating: 4.6,
       reviewCount: 112,
       isNew: false,
@@ -565,113 +565,8 @@ export function FeaturedProducts({
   const productsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // GSAP Animations - Otimizado para performance
-    const loadGSAP = async () => {
-      try {
-        const { gsap } = await import('gsap')
-        const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-        
-        gsap.registerPlugin(ScrollTrigger)
-
-        const section = sectionRef.current
-        const products = productsRef.current
-        
-        if (section && products) {
-          // Animação de entrada da seção (simplificada)
-          gsap.fromTo(section, 
-            { 
-              opacity: 0, 
-              y: 50
-            },
-            { 
-              opacity: 1, 
-              y: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                end: "bottom 20%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          )
-
-          // Animação dos produtos (simplificada)
-          gsap.fromTo(".product-card", 
-            { 
-              opacity: 0, 
-              y: 30
-            },
-            { 
-              opacity: 1, 
-              y: 0,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: products,
-                start: "top 70%",
-                end: "bottom 30%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          )
-
-          // Animação dos preços (simplificada)
-          gsap.fromTo(".product-price", 
-            { 
-              opacity: 0,
-              scale: 0.9
-            },
-            { 
-              opacity: 1,
-              scale: 1,
-              duration: 0.4,
-              stagger: 0.03,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: products,
-                start: "top 60%",
-                end: "bottom 40%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          )
-
-          // Animação das tags (simplificada)
-          gsap.fromTo(".product-tag", 
-            { 
-              opacity: 0,
-              x: -15
-            },
-            { 
-              opacity: 1,
-              x: 0,
-              duration: 0.4,
-              stagger: 0.02,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: products,
-                start: "top 50%",
-                end: "bottom 50%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          )
-        }
-      } catch (error) {
-        console.log('GSAP not available, using Framer Motion instead')
-        setIsVisible(true)
-      }
-    }
-
-    // Carregar GSAP com delay para não bloquear o carregamento
-    const timer = setTimeout(loadGSAP, 300)
-    
-    return () => {
-      clearTimeout(timer)
-    }
+    // Animação simplificada - apenas Framer Motion
+    setIsVisible(true)
   }, [])
 
   const handleAddToCart = (product: typeof products[0]) => {
@@ -732,6 +627,8 @@ export function FeaturedProducts({
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                 
                 {/* Overlay */}
@@ -817,7 +714,7 @@ export function FeaturedProducts({
 
                 {/* View Details Button */}
                 <Link
-                  href={`/produtos/${product.slug}`}
+                  href={`/produto/${product.slug}`}
                   className="w-full bg-primary hover:bg-primary/80 text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn"
                 >
                   Ver Detalhes
