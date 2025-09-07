@@ -1,41 +1,49 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { ShoppingCart, Search, Menu, X, User, Heart, Package } from 'lucide-react'
-import { SearchBar } from '@/components/ui/search-bar'
-import { CartDrawer } from '@/components/cart/cart-drawer'
-import { UserMenu } from '@/components/auth/user-menu'
-import { AnimatedLogo } from '@/components/ui/animated-logo'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
-import { useCart } from '@/hooks/use-cart'
-import { useAuth } from '@/contexts/auth-context'
-import { useGlowEffect } from '@/hooks/use-glow-effect'
-import { GlowButton } from '@/components/ui/glow-button'
-import { AdvancedHeart } from '@/components/ui/advanced-heart'
-import { cn } from '@/lib/utils'
+import { useState } from 'react';
+import Link from 'next/link';
+import {
+  ShoppingCart,
+  Search,
+  Menu,
+  X,
+  User,
+  Heart,
+  Package,
+} from 'lucide-react';
+import { SearchBar } from '@/components/ui/search-bar';
+import { CartDrawer } from '@/components/cart/cart-drawer';
+import { UserMenu } from '@/components/auth/user-menu';
+import { AnimatedLogo } from '@/components/ui/animated-logo';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { useCart } from '@/hooks/use-cart';
+import { useAuth } from '@/contexts/auth-context';
+import { useGlowEffect } from '@/hooks/use-glow-effect';
+import { GlowButton } from '@/components/ui/glow-button';
+import { AdvancedHeart } from '@/components/ui/advanced-heart';
+import { cn } from '@/lib/utils';
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [isCartOpen, setIsCartOpen] = useState(false)
-  const { user, isAuthenticated, logout } = useAuth()
-  const { items } = useCart()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const { items } = useCart();
 
-  const cartItemsCount = items.reduce((total, item) => total + item.quantity, 0)
+  const cartItemsCount = items.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen)
-  const toggleCart = () => setIsCartOpen(!isCartOpen)
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const navigation = [
     { name: 'Início', href: '/' },
-    { name: 'Produtos', href: '/produtos' },
     { name: 'Categorias', href: '/categorias' },
     { name: 'Ofertas', href: '/ofertas' },
-    { name: 'Sobre', href: '/sobre' },
-    { name: 'Contato', href: '/contato' },
-  ]
+  ];
 
   return (
     <>
@@ -48,26 +56,25 @@ export function Header() {
                 <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
                   <span className="text-white font-bold text-lg">M</span>
                 </div>
-                <AnimatedLogo text="Michel Store" className="text-2xl md:text-3xl" />
+                <AnimatedLogo
+                  text="Michel Store"
+                  className="text-2xl md:text-3xl"
+                />
               </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              {navigation.map((item) => {
-                const glowRef = useGlowEffect<HTMLAnchorElement>()
-                return (
-                  <Link
-                    key={item.name}
-                    ref={glowRef}
-                    href={item.href}
-                    className="nav-glow relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group px-3 py-2 rounded-lg"
-                  >
-                    {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                )
-              })}
+              {navigation.map(item => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="nav-glow relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group px-3 py-2 rounded-lg"
+                >
+                  {item.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              ))}
             </nav>
 
             {/* Desktop Actions */}
@@ -188,7 +195,7 @@ export function Header() {
           <div className="md:hidden border-t border-border bg-card">
             <nav className="container-responsive py-4">
               <div className="flex flex-col space-y-4">
-                {navigation.map((item) => (
+                {navigation.map(item => (
                   <Link
                     key={item.name}
                     href={item.href}
@@ -198,7 +205,7 @@ export function Header() {
                     {item.name}
                   </Link>
                 ))}
-                
+
                 {/* Mobile User Actions */}
                 <div className="pt-4 border-t border-border">
                   {isAuthenticated ? (
@@ -231,8 +238,8 @@ export function Header() {
                         </Link>
                         <button
                           onClick={() => {
-                            logout()
-                            setIsMenuOpen(false)
+                            logout();
+                            setIsMenuOpen(false);
                           }}
                           className="text-sm text-white/70 hover:text-white transition-colors text-left"
                         >
@@ -268,7 +275,5 @@ export function Header() {
       {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
-  )
+  );
 }
-
-
