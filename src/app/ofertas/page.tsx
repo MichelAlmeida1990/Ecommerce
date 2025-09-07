@@ -120,8 +120,7 @@ export default function OfertasPage() {
       id: oferta.id.toString(),
       name: oferta.name,
       price: oferta.price,
-      image: oferta.image,
-      quantity: 1
+      image: oferta.image
     })
 
     // Mostrar notificação de sucesso
