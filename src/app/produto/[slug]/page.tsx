@@ -80,7 +80,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
     // Adicionar ao carrinho
     for (let i = 0; i < quantity; i++) {
       addItem({
-        id: product.id,
+        id: product.id.toString(),
         name: product.name,
         price: product.price,
         image: product.image,

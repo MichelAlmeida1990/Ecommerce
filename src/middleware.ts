@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
       "img-src 'self' data: https: blob:",
       "font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com",
       "connect-src 'self' https://accounts.google.com https://www.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com",
-      "frame-src 'self' https://accounts.google.com https://ecommerce-top-a8629.firebaseapp.com https://your_project_id.firebaseapp.com",
+      "frame-src 'self' https://accounts.google.com https://ecommerce-top-a8629.firebaseapp.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -41,6 +41,9 @@ export function middleware(request: NextRequest) {
       'geolocation=()',
       'interest-cohort=()',
     ].join(', '),
+
+    // Cross-Origin-Opener-Policy para Google Auth
+    'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
 
     // Strict Transport Security (apenas em HTTPS)
     ...(request.nextUrl.protocol === 'https:' && {

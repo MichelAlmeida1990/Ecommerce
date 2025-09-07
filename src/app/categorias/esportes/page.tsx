@@ -216,7 +216,7 @@ export default function EsportesPage() {
     <div ref={pageRef} className="min-h-screen bg-surface">
       <div className="pt-20">
         {/* Hero da Categoria */}
-        <div ref={heroRef} className="bg-gradient-to-r from-[hsl(var(--brown))] via-[hsl(var(--accent))] to-[hsl(var(--pink))] py-20 relative overflow-hidden">
+        <div ref={heroRef} className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 py-20 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div 
@@ -271,8 +271,8 @@ export default function EsportesPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-accent to-azure rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="w-6 h-6 text-black" />
+                  <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-sm font-semibold text-white mb-1">
                     {feature.title}

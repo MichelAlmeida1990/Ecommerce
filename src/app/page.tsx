@@ -22,6 +22,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <StructuredData data={structuredData} />
+      
       {/* Hero Section - Banner 3D Interativo */}
       <Hero3DBanner />
 

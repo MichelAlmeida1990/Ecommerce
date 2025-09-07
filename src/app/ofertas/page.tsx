@@ -3,6 +3,11 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, Heart } from 'lucide-react'
 import Link from 'next/link'
+import { useCart } from '@/hooks/use-cart'
+import { useAuth } from '@/contexts/auth-context'
+import { useRouter } from 'next/navigation'
+import { SuccessNotification } from '@/components/ui/success-notification'
+import { useState } from 'react'
 
 const ofertas = [
   {
@@ -92,11 +97,36 @@ const ofertas = [
 ]
 
 export default function OfertasPage() {
+  const { addItem } = useCart()
+  const { isAuthenticated } = useAuth()
+  const router = useRouter()
+  const [showNotification, setShowNotification] = useState(false)
+  const [notificationProduct, setNotificationProduct] = useState<{name: string, price: number} | null>(null)
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     }).format(price)
+  }
+
+  const handleAddToCart = (oferta: any) => {
+    if (!isAuthenticated) {
+      router.push('/login?redirect=/ofertas')
+      return
+    }
+    
+    addItem({
+      id: oferta.id.toString(),
+      name: oferta.name,
+      price: oferta.price,
+      image: oferta.image,
+      quantity: 1
+    })
+
+    // Mostrar notificação de sucesso
+    setNotificationProduct({ name: oferta.name, price: oferta.price })
+    setShowNotification(true)
   }
 
   return (
@@ -261,6 +291,7 @@ export default function OfertasPage() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => handleAddToCart(oferta)}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm"
                 >
                   <ShoppingCart className="w-5 h-5" />
@@ -271,6 +302,16 @@ export default function OfertasPage() {
           ))}
         </div>
       </div>
+
+      {/* Success Notification */}
+      {notificationProduct && (
+        <SuccessNotification
+          isVisible={showNotification}
+          onClose={() => setShowNotification(false)}
+          productName={notificationProduct.name}
+          price={notificationProduct.price}
+        />
+      )}
     </div>
   )
 }

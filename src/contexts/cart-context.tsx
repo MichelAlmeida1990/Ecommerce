@@ -2,6 +2,7 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { logProductAdded, logCartUpdate } from '@/lib/console-utils'
 
 export interface CartItem {
   id: string
@@ -38,15 +39,25 @@ const useCartStore = create<CartStore>()(
               existingItem.variant?.value === item.variant?.value
           )
 
+          let updatedItems;
           if (existingItemIndex > -1) {
             // Update existing item quantity
-            const updatedItems = [...state.items]
+            updatedItems = [...state.items]
             updatedItems[existingItemIndex].quantity += 1
-            return { items: updatedItems }
           } else {
             // Add new item
-            return { items: [...state.items, { ...item, quantity: 1 }] }
+            updatedItems = [...state.items, { ...item, quantity: 1 }]
           }
+
+          // Log estilizado
+          logProductAdded(item.name, item.price)
+          
+          // Log de atualização do carrinho
+          const newTotal = updatedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+          const newItemCount = updatedItems.reduce((total, item) => total + item.quantity, 0)
+          logCartUpdate('produto adicionado', newItemCount, newTotal)
+
+          return { items: updatedItems }
         })
       },
 

@@ -39,7 +39,7 @@ const categories = [
     slug: 'esportes',
     description: 'Performance e qualidade',
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-    color: 'from-accent to-green-500',
+    color: 'from-blue-600 to-blue-800',
     icon: '⚽',
   },
 ]

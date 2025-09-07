@@ -201,7 +201,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -220,24 +220,24 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Formulário */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <div className="bg-gradient-to-br from-blue-400/20 via-blue-500/25 to-blue-600/30 backdrop-blur-3xl border border-blue-300/40 rounded-2xl shadow-2xl p-6">
               {/* Progress Steps */}
               <div className="flex items-center justify-between mb-8">
                 {[1, 2, 3].map((step) => (
                   <div key={step} className="flex items-center">
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold backdrop-blur-sm ${
                         step <= currentStep
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                          ? 'bg-blue-500/80 text-white border border-white/30'
+                          : 'bg-white/20 text-gray-600 dark:text-gray-300 border border-white/20'
                       }`}
                     >
                       {step}
                     </div>
                     {step < 3 && (
                       <div
-                        className={`w-16 h-1 mx-2 ${
-                          step < currentStep ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
+                        className={`w-16 h-1 mx-2 rounded-full ${
+                          step < currentStep ? 'bg-blue-500/80' : 'bg-white/20'
                         }`}
                       />
                     )}
@@ -253,7 +253,9 @@ export default function CheckoutPage() {
                   className="space-y-6"
                 >
                   <div className="flex items-center mb-6">
-                    <User className="w-6 h-6 text-blue-600 mr-3" />
+                    <div className="w-8 h-8 bg-blue-500/15 backdrop-blur-md rounded-lg flex items-center justify-center mr-3">
+                      <User className="w-5 h-5 text-blue-600" />
+                    </div>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                       Dados Pessoais
                     </h2>
@@ -268,7 +270,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Seu nome"
                       />
                     </div>
@@ -280,7 +282,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange('lastName', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Seu sobrenome"
                       />
                     </div>
@@ -294,7 +296,7 @@ export default function CheckoutPage() {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white"
                       placeholder="seu@email.com"
                     />
                   </div>
@@ -308,7 +310,7 @@ export default function CheckoutPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="(11) 99999-9999"
                       />
                     </div>
@@ -320,7 +322,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.cpf}
                         onChange={(e) => handleInputChange('cpf', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="000.000.000-00"
                       />
                     </div>
@@ -336,7 +338,9 @@ export default function CheckoutPage() {
                   className="space-y-6"
                 >
                   <div className="flex items-center mb-6">
-                    <MapPin className="w-6 h-6 text-blue-600 mr-3" />
+                    <div className="w-8 h-8 bg-blue-500/15 backdrop-blur-md rounded-lg flex items-center justify-center mr-3">
+                      <MapPin className="w-5 h-5 text-blue-600" />
+                    </div>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                       Endereço de Entrega
                     </h2>
@@ -351,7 +355,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.cep}
                         onChange={(e) => handleInputChange('cep', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="00000-000"
                       />
                     </div>
@@ -363,7 +367,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.street}
                         onChange={(e) => handleInputChange('street', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Nome da rua"
                       />
                     </div>
@@ -378,7 +382,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.number}
                         onChange={(e) => handleInputChange('number', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="123"
                       />
                     </div>
@@ -390,7 +394,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.complement}
                         onChange={(e) => handleInputChange('complement', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Apartamento, casa, etc."
                       />
                     </div>
@@ -405,7 +409,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.neighborhood}
                         onChange={(e) => handleInputChange('neighborhood', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Nome do bairro"
                       />
                     </div>
@@ -417,7 +421,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={formData.city}
                         onChange={(e) => handleInputChange('city', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                         placeholder="Sua cidade"
                       />
                     </div>
@@ -428,7 +432,7 @@ export default function CheckoutPage() {
                       <select
                         value={formData.state}
                         onChange={(e) => handleInputChange('state', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                       >
                         <option value="">Selecione</option>
                         <option value="AC">Acre</option>
@@ -472,7 +476,9 @@ export default function CheckoutPage() {
                   className="space-y-6"
                 >
                   <div className="flex items-center mb-6">
-                    <CreditCard className="w-6 h-6 text-blue-600 mr-3" />
+                    <div className="w-8 h-8 bg-blue-500/15 backdrop-blur-md rounded-lg flex items-center justify-center mr-3">
+                      <CreditCard className="w-5 h-5 text-blue-600" />
+                    </div>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                       Forma de Pagamento
                     </h2>
@@ -488,10 +494,10 @@ export default function CheckoutPage() {
                       <button
                         key={method.value}
                         onClick={() => handleInputChange('paymentMethod', method.value)}
-                        className={`p-4 border-2 rounded-lg text-center transition-colors ${
+                        className={`p-4 border-2 rounded-lg text-center transition-colors backdrop-blur-md ${
                           formData.paymentMethod === method.value
-                            ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
+                            ? 'border-blue-600/80 bg-blue-500/25'
+                            : 'border-white/50 bg-white/10 hover:border-white/70'
                         }`}
                       >
                         <div className="text-2xl mb-2">{method.icon}</div>
@@ -510,7 +516,7 @@ export default function CheckoutPage() {
                           type="text"
                           value={formData.cardNumber}
                           onChange={(e) => handleInputChange('cardNumber', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                           placeholder="0000 0000 0000 0000"
                         />
                       </div>
@@ -523,7 +529,7 @@ export default function CheckoutPage() {
                           type="text"
                           value={formData.cardName}
                           onChange={(e) => handleInputChange('cardName', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                           placeholder="Nome como está no cartão"
                         />
                       </div>
@@ -537,7 +543,7 @@ export default function CheckoutPage() {
                             type="text"
                             value={formData.expiryDate}
                             onChange={(e) => handleInputChange('expiryDate', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                            className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             placeholder="MM/AA"
                           />
                         </div>
@@ -549,7 +555,7 @@ export default function CheckoutPage() {
                             type="text"
                             value={formData.cvv}
                             onChange={(e) => handleInputChange('cvv', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                            className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             placeholder="000"
                           />
                         </div>
@@ -563,7 +569,7 @@ export default function CheckoutPage() {
                           <select
                             value={formData.installments}
                             onChange={(e) => handleInputChange('installments', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                            className="w-full px-3 py-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                           >
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
                               <option key={num} value={num}>
@@ -611,7 +617,7 @@ export default function CheckoutPage() {
                 <button
                   onClick={handlePreviousStep}
                   disabled={currentStep === 1}
-                  className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-6 py-2 bg-white/15 backdrop-blur-md border border-white/50 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-white/25 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Voltar
                 </button>
@@ -620,7 +626,7 @@ export default function CheckoutPage() {
                   <button
                     onClick={handleNextStep}
                     disabled={!validateStep(currentStep)}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 backdrop-blur-sm"
                   >
                     Continuar
                   </button>
@@ -628,7 +634,7 @@ export default function CheckoutPage() {
                   <button
                     onClick={handleSubmit}
                     disabled={!validateStep(3) || isProcessing}
-                    className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center"
+                    className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center backdrop-blur-sm"
                   >
                     {isProcessing ? (
                       <>
@@ -646,18 +652,18 @@ export default function CheckoutPage() {
 
           {/* Resumo do Pedido */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sticky top-8">
+            <div className="bg-gradient-to-br from-blue-400/20 via-blue-500/25 to-blue-600/30 backdrop-blur-3xl border border-blue-300/40 rounded-2xl shadow-2xl p-6 sticky top-8">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Resumo do Pedido
               </h3>
 
               <div className="space-y-4">
                 {items.map((item) => (
-                  <div key={`${item.id}-${item.variant?.value || 'default'}`} className="flex space-x-3">
+                  <div key={`${item.id}-${item.variant?.value || 'default'}`} className="flex space-x-3 p-3 bg-white/10 backdrop-blur-md rounded-lg border border-white/40">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-12 h-12 object-cover rounded-md"
+                      className="w-12 h-12 object-cover rounded-lg"
                     />
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -679,7 +685,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4 space-y-2">
+              <div className="border-t border-white/30 pt-4 mt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
                   <span className="text-gray-900 dark:text-white">{formatPrice(total)}</span>
@@ -690,14 +696,14 @@ export default function CheckoutPage() {
                     {shipping === 0 ? 'Grátis' : formatPrice(shipping)}
                   </span>
                 </div>
-                <div className="flex justify-between text-lg font-semibold border-t border-gray-200 dark:border-gray-700 pt-2">
+                <div className="flex justify-between text-lg font-semibold border-t border-white/30 pt-2">
                   <span className="text-gray-900 dark:text-white">Total:</span>
                   <span className="text-blue-600">{formatPrice(finalTotal)}</span>
                 </div>
               </div>
 
               {shipping > 0 && (
-                <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                <div className="mt-4 p-3 bg-blue-500/8 backdrop-blur-md border border-blue-500/40 rounded-lg">
                   <p className="text-sm text-blue-800 dark:text-blue-200">
                     💡 Adicione mais {formatPrice(99 - total)} para ganhar frete grátis!
                   </p>

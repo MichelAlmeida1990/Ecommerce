@@ -41,8 +41,11 @@ export function Header() {
 
   const navigation = [
     { name: 'Início', href: '/' },
+    { name: 'Produtos', href: '/produtos' },
     { name: 'Categorias', href: '/categorias' },
     { name: 'Ofertas', href: '/ofertas' },
+    { name: 'Sobre', href: '/sobre' },
+    { name: 'Contato', href: '/contato' },
   ];
 
   return (
