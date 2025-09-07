@@ -102,7 +102,7 @@ export default function ProdutosPage() {
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationProduct, setNotificationProduct] = useState<{name: string, price: number} | null>(null);
-  
+
   const { addItem } = useCart();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
@@ -112,7 +112,7 @@ export default function ProdutosPage() {
       router.push('/login?redirect=/produtos');
       return;
     }
-    
+
     addItem({
       id: product.id.toString(),
       name: product.name,
@@ -130,7 +130,7 @@ export default function ProdutosPage() {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'Todos' || product.category === selectedCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-    
+
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
@@ -315,7 +315,7 @@ export default function ProdutosPage() {
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                       {product.name}
                     </h3>
-                    
+
                     <div className="flex items-center mb-2">
                       <div className="flex items-center">
                         {[...Array(5)].map((_, i) => (

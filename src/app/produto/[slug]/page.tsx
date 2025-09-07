@@ -44,7 +44,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
       ...categoryProducts.esportes,
       ...categoryProducts['casa-jardim']
     ]
-    
+
     const foundProduct = allProducts.find(p => p.slug === params.slug)
     setProduct(foundProduct || null)
   }, [params.slug])
@@ -73,10 +73,10 @@ export default function ProductDetails({ params }: { params: { slug: string } })
 
   const handleAddToCart = async () => {
     setIsAddingToCart(true)
-    
+
     // Simular delay de adição
     await new Promise(resolve => setTimeout(resolve, 500))
-    
+
     // Adicionar ao carrinho
     for (let i = 0; i < quantity; i++) {
       addItem({
@@ -86,7 +86,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
         image: product.image,
       })
     }
-    
+
     setIsAddingToCart(false)
   }
 
@@ -99,7 +99,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
 
     // Primeiro adicionar ao carrinho
     await handleAddToCart()
-    
+
     // Depois redirecionar para checkout
     router.push('/checkout')
   }
@@ -118,26 +118,26 @@ export default function ProductDetails({ params }: { params: { slug: string } })
       <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
               <span>Voltar</span>
             </Link>
-            
+
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsWishlisted(!isWishlisted)}
                 className={`p-2 rounded-lg transition-colors ${
-                  isWishlisted 
-                    ? 'text-red-500 bg-red-50 dark:bg-red-900/20' 
+                  isWishlisted
+                    ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
                     : 'text-gray-600 dark:text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                 }`}
               >
                 <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
               </button>
-              
+
               <button className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                 <Share2 className="h-5 w-5" />
               </button>
@@ -147,7 +147,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
@@ -161,7 +161,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                 loading="eager"
                 quality={85}
               />
-              
+
               {/* Tags */}
               <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                 {product.tags.slice(0, 2).map((tag, index) => (
@@ -245,7 +245,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                   </span>
                 )}
               </div>
-              
+
               {product.isOnSale && (
                 <p className="text-green-600 dark:text-green-400 font-medium">
                   Economize {formatPrice(product.comparePrice - product.price)}
@@ -265,7 +265,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Descrição</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                {showFullDescription 
+                {showFullDescription
                   ? `Produto de alta qualidade com excelente custo-benefício. ${product.name} oferece o melhor em termos de performance e durabilidade. Ideal para quem busca qualidade e praticidade.`
                   : `Produto de alta qualidade com excelente custo-benefício. ${product.name} oferece o melhor em termos de performance e durabilidade...`
                 }
@@ -305,7 +305,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
               <button
                 onClick={handleAddToCart}
                 disabled={isAddingToCart}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center space-x-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center space-x-2 min-h-[48px] text-base"
               >
                 {isAddingToCart ? (
                   <>
@@ -319,11 +319,11 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                   </>
                 )}
               </button>
-              
+
               <button
                 onClick={handleBuyNow}
                 disabled={isAddingToCart}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center space-x-2 min-h-[48px] text-base"
               >
                 <span>Comprar Agora</span>
               </button>
@@ -338,7 +338,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                   <p className="text-sm text-gray-600 dark:text-gray-300">Para todo o Brasil</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                 <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
                 <div>
@@ -346,7 +346,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
                   <p className="text-sm text-gray-600 dark:text-gray-300">12 meses</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                 <RotateCcw className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 <div>

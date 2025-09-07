@@ -85,7 +85,7 @@ export default function SobrePage() {
               Sua loja online de confiança desde 2020
             </p>
             <p className="text-lg text-blue-200">
-              Somos uma empresa brasileira dedicada a oferecer os melhores produtos 
+              Somos uma empresa brasileira dedicada a oferecer os melhores produtos
               com preços competitivos e um atendimento excepcional.
             </p>
           </motion.div>

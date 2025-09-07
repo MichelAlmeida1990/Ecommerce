@@ -58,7 +58,7 @@ export function Header() {
               <Link href="/" className="flex items-center">
                 <AnimatedLogo
                   text="Versiory Store"
-                  className="text-2xl md:text-3xl"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl"
                 />
               </Link>
             </div>
@@ -146,23 +146,23 @@ export function Header() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-1 sm:space-x-2">
               <GlowButton
                 onClick={toggleSearch}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-300 group"
+                className="p-2 sm:p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-300 group min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Buscar"
               >
-                <Search className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                <Search className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
               </GlowButton>
 
               <GlowButton
                 onClick={toggleCart}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-300 group relative"
+                className="p-2 sm:p-3 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-300 group relative min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Carrinho"
               >
-                <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
+                  <span className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                     {cartItemsCount > 99 ? '99+' : cartItemsCount}
                   </span>
                 )}
@@ -170,13 +170,13 @@ export function Header() {
 
               <GlowButton
                 onClick={toggleMenu}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-300 group"
+                className="p-2 sm:p-3 text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-300 group min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Menu"
               >
                 {isMenuOpen ? (
-                  <X className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                  <X className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
                 ) : (
-                  <Menu className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                  <Menu className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
                 )}
               </GlowButton>
             </div>

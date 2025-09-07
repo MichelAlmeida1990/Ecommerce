@@ -38,7 +38,7 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
     try {
       // Simulate API call - replace with actual search API
       await new Promise(resolve => setTimeout(resolve, 300))
-      
+
       // Mock suggestions - replace with actual search results
       const mockSuggestions = [
         `${searchQuery} smartphone`,
@@ -47,7 +47,7 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
         `${searchQuery} camiseta`,
         `${searchQuery} tênis`,
       ]
-      
+
       setSuggestions(mockSuggestions)
       setShowSuggestions(true)
     } catch (error) {
@@ -99,7 +99,7 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          
+
           <input
             ref={inputRef}
             type="text"
@@ -109,7 +109,7 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
             placeholder="O que você está procurando?"
             className="w-full pl-10 pr-20 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
           />
-          
+
           {query && (
             <button
               type="button"
@@ -120,7 +120,7 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
               <X className="h-4 w-4" />
             </button>
           )}
-          
+
           <button
             type="submit"
             disabled={!query.trim() || isSearching}
@@ -180,9 +180,5 @@ export function SearchBar({ onClose, className }: SearchBarProps) {
     </div>
   )
 }
-
-
-
-
 
 

@@ -551,8 +551,8 @@ interface FeaturedProductsProps {
   description?: string
 }
 
-export function FeaturedProducts({ 
-  products = defaultProducts, 
+export function FeaturedProducts({
+  products = defaultProducts,
   title = "Produtos em Destaque",
   description = "Descubra nossos produtos mais populares com preços imperdíveis. Qualidade garantida e entrega rápida em todo o Brasil."
 }: FeaturedProductsProps) {
@@ -608,14 +608,14 @@ export function FeaturedProducts({
         </motion.div>
 
         {/* Products Grid */}
-        <div ref={productsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={productsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
               className="product-card group bg-gradient-to-br from-blue-200 to-purple-200 dark:from-white/15 dark:to-white/5 backdrop-blur-sm border border-blue-300 dark:border-white/20 rounded-xl overflow-hidden hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               onHoverStart={() => setHoveredProduct(product.id)}
               onHoverEnd={() => setHoveredProduct(null)}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.02,
                 transition: { duration: 0.2 }
               }}
@@ -630,10 +630,10 @@ export function FeaturedProducts({
                     loading="lazy"
                     decoding="async"
                   />
-                
+
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Tags */}
                 <div className="absolute top-3 left-3 flex flex-wrap gap-2">
                   {product.tags.map((tag, tagIndex) => (
@@ -654,7 +654,7 @@ export function FeaturedProducts({
                   >
                     <Heart className="w-5 h-5" />
                   </button>
-                  
+
                   <button
                     onClick={() => handleAddToCart(product)}
                     className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
@@ -715,7 +715,7 @@ export function FeaturedProducts({
                 {/* View Details Button */}
                 <Link
                   href={`/produto/${product.slug}`}
-                  className="w-full bg-primary hover:bg-primary/80 text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn"
+                  className="w-full bg-primary hover:bg-primary/80 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn min-h-[44px] text-sm sm:text-base"
                 >
                   Ver Detalhes
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

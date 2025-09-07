@@ -458,35 +458,35 @@ export function Hero3DBanner() {
       </div>
 
       {/* Botões de ação */}
-      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
-        <div className="flex gap-4">
-                            <Link href="/categorias" className="group">
-                    <motion.button
-                      className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg hover:from-blue-500 hover:to-blue-400 transform hover:scale-105 transition-all duration-300 shadow-2xl"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ShoppingBag className="w-6 h-6 inline mr-2" />
-                      Explorar Produtos
-                    </motion.button>
-                  </Link>
+      <div className="absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 z-30 w-full max-w-sm sm:max-w-none px-4 sm:px-0">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+          <Link href="/categorias" className="group w-full sm:w-auto">
+            <motion.button
+              className="w-full sm:w-auto px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-800/60 to-blue-700/60 text-white font-bold rounded-full text-xs sm:text-base hover:from-blue-700/80 hover:to-blue-600/80 transform hover:scale-105 transition-all duration-300 shadow-2xl border border-white/30"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ShoppingBag className="w-3 h-3 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+              Explorar Produtos
+            </motion.button>
+          </Link>
 
-                  <Link href="/ofertas" className="group">
-                    <motion.button
-                      className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-full text-lg hover:from-orange-400 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 relative overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={{ x: '-100%' }}
-                        whileHover={{ x: '100%' }}
-                        transition={{ duration: 0.6 }}
-                      />
-                      <Sparkles className="w-6 h-6 inline mr-2 relative z-10" />
-                      <span className="relative z-10">Ver Ofertas</span>
-                    </motion.button>
-                  </Link>
+          <Link href="/ofertas" className="group w-full sm:w-auto">
+            <motion.button
+              className="w-full sm:w-auto px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-orange-800/60 to-red-800/60 text-white font-bold rounded-full text-xs sm:text-base hover:from-orange-700/80 hover:to-red-700/80 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 relative overflow-hidden border border-white/30"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.6 }}
+              />
+              <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 inline mr-1 sm:mr-2 relative z-10" />
+              <span className="relative z-10">Ver Ofertas</span>
+            </motion.button>
+          </Link>
         </div>
       </div>
 
