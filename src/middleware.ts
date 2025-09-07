@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
       "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com https://apis.google.com https://www.gstatic.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.cdnfonts.com",
       "img-src 'self' data: https: blob:",
-      "font-src 'self' https://fonts.gstatic.com",
+      "font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com",
       "connect-src 'self' https://accounts.google.com https://www.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com",
       "frame-src 'self' https://accounts.google.com https://ecommerce-top-a8629.firebaseapp.com https://your_project_id.firebaseapp.com",
       "object-src 'none'",
