@@ -70,8 +70,7 @@ export default function FavoritosPage() {
       id: product.id.toString(),
       name: product.name,
       price: product.price,
-      image: product.image,
-      quantity: 1
+      image: product.image
     });
   };
 
