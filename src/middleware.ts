@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
       "img-src 'self' data: https: blob:",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://accounts.google.com https://www.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com",
-      "frame-src 'self' https://accounts.google.com https://ecommerce-top-a8629.firebaseapp.com",
+      "frame-src 'self' https://accounts.google.com https://ecommerce-top-a8629.firebaseapp.com https://your_project_id.firebaseapp.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
