@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle, HelpCircle, FileText } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle, HelpCircle } from 'lucide-react';
 
 const contactInfo = [
   {
@@ -58,6 +58,13 @@ const faqs = [
   }
 ];
 
+// Imagens para o banner de contato - relacionadas a atendimento e suporte
+const contactImages = [
+  'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&h=1080&fit=crop&crop=center', // Atendimento ao cliente
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&h=1080&fit=crop&crop=center', // Suporte técnico
+  'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=1920&h=1080&fit=crop&crop=center'  // Equipe de suporte
+];
+
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -68,6 +75,18 @@ export default function ContatoPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Trocar imagem a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === contactImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -77,10 +96,10 @@ export default function ContatoPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simular envio do formulário
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     setIsSubmitting(false);
     setSubmitted(true);
     setFormData({
@@ -94,36 +113,98 @@ export default function ContatoPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4">
+      {/* Hero Section com Imagens */}
+      <section className="relative h-[80vh] overflow-hidden">
+        {/* Background Images */}
+        <div className="absolute inset-0">
+          {contactImages.map((image, index) => (
+            <motion.div
+              key={index}
+              className={`absolute inset-0 bg-cover bg-no-repeat ${
+                index === 1 ? 'bg-top' : 'bg-center'
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: index === currentImageIndex ? 1 : 0,
+                scale: index === currentImageIndex ? 1 : 1.05
+              }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+            />
+          ))}
+        </div>
+
+
+        <div className="container mx-auto px-4 h-full flex items-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto text-white"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            {/* Overlay sutil apenas para o texto */}
+            <div className="absolute inset-0 bg-black/30 rounded-3xl -m-8"></div>
+            <div className="relative z-10">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-block mb-6"
+            >
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto">
+                <MessageCircle className="w-10 h-10 text-white" />
+              </div>
+            </motion.div>
+
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
               Entre em Contato
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8">
+            <p className="text-xl md:text-2xl text-blue-100 mb-8 font-medium">
               Estamos aqui para ajudar você
             </p>
-            <p className="text-lg text-blue-200">
+            <p className="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed">
               Nossa equipe está pronta para responder suas dúvidas e ajudar com qualquer questão.
+              Conecte-se conosco e tenha a melhor experiência de atendimento.
             </p>
+
+            {/* Contact Quick Actions */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex flex-wrap justify-center gap-4 mt-8"
+            >
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                <Phone className="w-4 h-4" />
+                <span className="text-sm">(11) 99999-9999</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                <Mail className="w-4 h-4" />
+                <span className="text-sm">contato@michelstore.com.br</span>
+              </div>
+            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-white dark:bg-gray-800">
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="text-center mb-12"
           >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Como nos encontrar
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Escolha a forma mais conveniente para entrar em contato conosco
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
@@ -131,23 +212,25 @@ export default function ContatoPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center"
+                className="group"
               >
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <info.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 group-hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <info.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 text-center">
+                    {info.title}
+                  </h3>
+                  <p className="text-gray-900 dark:text-white font-semibold mb-2 text-center text-lg">
+                    {info.content}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 text-center leading-relaxed">
+                    {info.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {info.title}
-                </h3>
-                <p className="text-gray-900 dark:text-white font-medium mb-1">
-                  {info.content}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {info.description}
-                </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -163,7 +246,7 @@ export default function ContatoPage() {
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 Envie sua Mensagem
               </h2>
-              
+
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -303,7 +386,7 @@ export default function ContatoPage() {
                 <HelpCircle className="w-6 h-6 text-blue-600" />
                 Perguntas Frequentes
               </h2>
-              
+
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
                   <motion.div

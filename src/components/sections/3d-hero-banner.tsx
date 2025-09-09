@@ -133,61 +133,67 @@ export function Hero3DBanner() {
     const loadGSAP = async () => {
       try {
         const { gsap } = await import('gsap')
-        
+
         // Animação de entrada
-        gsap.fromTo(containerRef.current, 
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
-        )
+        if (containerRef.current) {
+          gsap.fromTo(containerRef.current,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+          )
+        }
 
         // Animação dos textos de fundo
         const textItems = document.querySelectorAll('.text-item')
-        textItems.forEach((item, index) => {
-          const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
-          gsap.fromTo(item, 
-            { opacity: 0, y: 20 },
-            { 
-              opacity: isOfertas ? 0.9 : 0.8, 
-              y: 0, 
-              duration: 0.8, 
-              delay: index * 0.05, 
-              ease: "power2.out" 
-            }
-          )
-        })
+        if (textItems.length > 0) {
+          textItems.forEach((item, index) => {
+            const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
+            gsap.fromTo(item,
+              { opacity: 0, y: 20 },
+              {
+                opacity: isOfertas ? 0.9 : 0.8,
+                y: 0,
+                duration: 0.8,
+                delay: index * 0.05,
+                ease: "power2.out"
+              }
+            )
+          })
+        }
 
         // Animação contínua dos textos de fundo
-        textItems.forEach((item, index) => {
-          const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
-          if (isOfertas) {
-            // Animação especial para OFERTAS com brilho branco
-            gsap.to(item, {
-              opacity: 0.9,
-              duration: 2,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-              delay: index * 0.1
-            })
-            // Animação de brilho adicional
-            gsap.to(item, {
-              textShadow: "0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.6)",
-              duration: 1.5,
-              repeat: -1,
-              yoyo: true,
-              ease: "power2.inOut"
-            })
-          } else {
-            gsap.to(item, {
-              opacity: 0.6 + (index % 3) * 0.2,
-              duration: 2 + (index % 3),
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-              delay: index * 0.1
-            })
-          }
-        })
+        if (textItems.length > 0) {
+          textItems.forEach((item, index) => {
+            const isOfertas = item.getAttribute('data-text') === 'OFERTAS'
+            if (isOfertas) {
+              // Animação especial para OFERTAS com brilho branco
+              gsap.to(item, {
+                opacity: 0.9,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.1
+              })
+              // Animação de brilho adicional
+              gsap.to(item, {
+                textShadow: "0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.6)",
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "power2.inOut"
+              })
+            } else {
+              gsap.to(item, {
+                opacity: 0.6 + (index % 3) * 0.2,
+                duration: 2 + (index % 3),
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.1
+              })
+            }
+          })
+        }
 
         // Inicializar kinetic type
         const kineticType = document.getElementById('kinetic-type')
@@ -205,36 +211,36 @@ export function Hero3DBanner() {
 
   const handleRowHover = async (rowId: string) => {
     setActiveRow(rowId)
-    
+
     try {
       const { gsap } = await import('gsap')
-      
+
       // Mudar background
       const backgrounds = document.querySelectorAll('.background-image')
       backgrounds.forEach(bg => {
         gsap.to(bg, { opacity: 0, duration: 0.5 })
       })
-      
+
       const activeBg = document.getElementById(`${rowId}-bg`)
       if (activeBg) {
         gsap.to(activeBg, { opacity: 0.4, duration: 0.8, delay: 0.2 })
       }
-      
+
       // Animar textos de fundo
       const textItems = document.querySelectorAll('.text-item')
       const alternativeTexts = ecommerceTexts[rowId as keyof typeof ecommerceTexts]
-      
+
       textItems.forEach((item, index) => {
         const originalText = item.getAttribute('data-text')
         if (originalText && alternativeTexts[originalText as keyof typeof alternativeTexts]) {
           // Adicionar highlight
           item.classList.add('highlight')
-          
+
           setTimeout(() => {
             item.textContent = alternativeTexts[originalText as keyof typeof alternativeTexts]
             item.classList.remove('highlight')
             item.classList.add('highlight-reverse')
-            
+
             setTimeout(() => {
               item.classList.remove('highlight-reverse')
             }, 500)
@@ -245,13 +251,13 @@ export function Hero3DBanner() {
       // Ativar kinetic type
       const kineticType = document.getElementById('kinetic-type')
       const typeLines = document.querySelectorAll('.type-line')
-      
+
       if (kineticType && typeLines.length > 0) {
         // Atualizar texto das linhas
         typeLines.forEach(line => {
           line.textContent = `${rowId} ${rowId} ${rowId}`
         })
-        
+
         // Animar kinetic type
         gsap.to(kineticType, {
           scale: 2.5,
@@ -259,7 +265,7 @@ export function Hero3DBanner() {
           duration: 1.5,
           ease: "power2.out"
         })
-        
+
         gsap.to(typeLines, {
           opacity: 0.8,
           duration: 1,
@@ -267,7 +273,7 @@ export function Hero3DBanner() {
           ease: "power2.out"
         })
       }
-      
+
     } catch (error) {
       console.log('GSAP not available for hover effects')
     }
@@ -275,33 +281,33 @@ export function Hero3DBanner() {
 
   const handleRowLeave = async () => {
     setActiveRow(null)
-    
+
     try {
       const { gsap } = await import('gsap')
-      
+
       // Voltar background padrão
       const backgrounds = document.querySelectorAll('.background-image')
       backgrounds.forEach(bg => {
         gsap.to(bg, { opacity: 0, duration: 0.5 })
       })
-      
+
       const defaultBg = document.getElementById('default-bg')
       if (defaultBg) {
         gsap.to(defaultBg, { opacity: 0.3, duration: 0.8, delay: 0.2 })
       }
-      
+
       // Restaurar textos originais
       const textItems = document.querySelectorAll('.text-item')
       textItems.forEach((item, index) => {
         const originalText = item.getAttribute('data-text')
         if (originalText) {
           item.classList.add('highlight')
-          
+
           setTimeout(() => {
             item.textContent = originalText
             item.classList.remove('highlight')
             item.classList.add('highlight-reverse')
-            
+
             setTimeout(() => {
               item.classList.remove('highlight-reverse')
             }, 500)
@@ -312,7 +318,7 @@ export function Hero3DBanner() {
       // Resetar kinetic type
       const kineticType = document.getElementById('kinetic-type')
       const typeLines = document.querySelectorAll('.type-line')
-      
+
       if (kineticType && typeLines.length > 0) {
         gsap.to(kineticType, {
           scale: 1,
@@ -321,14 +327,14 @@ export function Hero3DBanner() {
           duration: 1,
           ease: "power2.out"
         })
-        
+
         gsap.to(typeLines, {
           opacity: 0.05,
           duration: 0.8,
           ease: "power2.out"
         })
       }
-      
+
     } catch (error) {
       console.log('GSAP not available for leave effects')
     }
@@ -338,16 +344,16 @@ export function Hero3DBanner() {
     <section className="relative min-h-screen bg-black overflow-hidden" style={{ position: 'relative' }}>
       {/* Background Frame */}
       <div className="background-frame"></div>
-      
+
       {/* Background Images */}
       <div className="background-image default" id="default-bg"></div>
       <div className="background-image ofertas" id="ofertas-bg"></div>
       <div className="background-image produtos" id="produtos-bg"></div>
       <div className="background-image qualidade" id="qualidade-bg"></div>
-      
+
       {/* Bottom Gradient */}
       <div className="bottom-gradient"></div>
-      
+
       {/* Text Background */}
       <div className="text-background">
         {/* Palavras em português relacionadas ao e-commerce */}
@@ -356,61 +362,61 @@ export function Hero3DBanner() {
         <div className="text-item" style={{top: '5%', left: '45%'}} data-text="QUALIDADE">QUALIDADE</div>
         <div className="text-item" style={{top: '5%', left: '70%'}} data-text="PREÇOS">PREÇOS</div>
         <div className="text-item" style={{top: '5%', right: '10%'}} data-text="DESCONTO">DESCONTO</div>
-        
+
         <div className="text-item" style={{top: '12%', left: '15%'}} data-text="COMPRAR">COMPRAR</div>
         <div className="text-item" style={{top: '12%', left: '40%'}} data-text="VENDER">VENDER</div>
         <div className="text-item" style={{top: '12%', left: '65%'}} data-text="ECONOMIA">ECONOMIA</div>
         <div className="text-item" style={{top: '12%', right: '20%'}} data-text="PROMOÇÃO">PROMOÇÃO</div>
-        
+
         <div className="text-item" style={{top: '20%', left: '10%'}} data-text="LOJA">LOJA</div>
         <div className="text-item" style={{top: '20%', left: '30%'}} data-text="ONLINE">ONLINE</div>
         <div className="text-item" style={{top: '20%', left: '55%'}} data-text="SEGURANÇA">SEGURANÇA</div>
         <div className="text-item" style={{top: '20%', right: '15%'}} data-text="CONFIANÇA">CONFIANÇA</div>
-        
+
         <div className="text-item" style={{top: '28%', left: '20%'}} data-text="ENTREGA">ENTREGA</div>
         <div className="text-item" style={{top: '28%', left: '50%'}} data-text="RÁPIDA">RÁPIDA</div>
         <div className="text-item" style={{top: '28%', right: '25%'}} data-text="GRÁTIS">GRÁTIS</div>
-        
+
         <div className="text-item" style={{top: '35%', left: '15%'}} data-text="PAGAMENTO">PAGAMENTO</div>
         <div className="text-item" style={{top: '35%', left: '45%'}} data-text="SEGURO">SEGURO</div>
         <div className="text-item" style={{top: '35%', right: '20%'}} data-text="CARTÃO">CARTÃO</div>
-        
+
         <div className="text-item" style={{top: '42%', left: '25%'}} data-text="PARCELADO">PARCELADO</div>
         <div className="text-item" style={{top: '42%', left: '60%'}} data-text="SEM JUROS">SEM JUROS</div>
         <div className="text-item" style={{top: '42%', right: '10%'}} data-text="CRÉDITO">CRÉDITO</div>
-        
+
         <div className="text-item" style={{top: '50%', left: '10%'}} data-text="GARANTIA">GARANTIA</div>
         <div className="text-item" style={{top: '50%', left: '40%'}} data-text="TROCA">TROCA</div>
         <div className="text-item" style={{top: '50%', left: '70%'}} data-text="DEVOLUÇÃO">DEVOLUÇÃO</div>
         <div className="text-item" style={{top: '50%', right: '5%'}} data-text="FÁCIL">FÁCIL</div>
-        
+
         <div className="text-item" style={{top: '58%', left: '20%'}} data-text="ATENDIMENTO">ATENDIMENTO</div>
         <div className="text-item" style={{top: '58%', left: '55%'}} data-text="SUPORTE">SUPORTE</div>
         <div className="text-item" style={{top: '58%', right: '15%'}} data-text="24H">24H</div>
-        
+
         <div className="text-item" style={{top: '65%', left: '15%'}} data-text="ORIGINAL">ORIGINAL</div>
         <div className="text-item" style={{top: '65%', left: '45%'}} data-text="AUTÊNTICO">AUTÊNTICO</div>
         <div className="text-item" style={{top: '65%', right: '20%'}} data-text="PREMIUM">PREMIUM</div>
-        
+
         <div className="text-item" style={{top: '72%', left: '25%'}} data-text="EXCLUSIVO">EXCLUSIVO</div>
         <div className="text-item" style={{top: '72%', left: '60%'}} data-text="LIMITADO">LIMITADO</div>
         <div className="text-item" style={{top: '72%', right: '10%'}} data-text="ESPECIAL">ESPECIAL</div>
-        
+
         <div className="text-item" style={{top: '80%', left: '10%'}} data-text="NOVO">NOVO</div>
         <div className="text-item" style={{top: '80%', left: '35%'}} data-text="LANÇAMENTO">LANÇAMENTO</div>
         <div className="text-item" style={{top: '80%', left: '65%'}} data-text="TENDÊNCIA">TENDÊNCIA</div>
         <div className="text-item" style={{top: '80%', right: '5%'}} data-text="MODA">MODA</div>
-        
+
         <div className="text-item" style={{top: '88%', left: '20%'}} data-text="MELHOR">MELHOR</div>
         <div className="text-item" style={{top: '88%', left: '50%'}} data-text="TOP">TOP</div>
         <div className="text-item" style={{top: '88%', right: '20%'}} data-text="SUCESSO">SUCESSO</div>
       </div>
-      
+
       {/* Main Content */}
       <div ref={containerRef} className="main-content">
         <div className="sliced-container">
-          <div 
-            className="text-row" 
+          <div
+            className="text-row"
             data-row-id="ofertas"
             onMouseEnter={() => handleRowHover('ofertas')}
             onMouseLeave={handleRowLeave}
@@ -418,9 +424,9 @@ export function Hero3DBanner() {
             <div className="text-content" data-text="OFERTAS">OFERTAS</div>
             <div className="interactive-area"></div>
           </div>
-          
-          <div 
-            className="text-row" 
+
+          <div
+            className="text-row"
             data-row-id="produtos"
             onMouseEnter={() => handleRowHover('produtos')}
             onMouseLeave={handleRowLeave}
@@ -428,9 +434,9 @@ export function Hero3DBanner() {
             <div className="text-content" data-text="PRODUTOS">PRODUTOS</div>
             <div className="interactive-area"></div>
           </div>
-          
-          <div 
-            className="text-row" 
+
+          <div
+            className="text-row"
             data-row-id="qualidade"
             onMouseEnter={() => handleRowHover('qualidade')}
             onMouseLeave={handleRowLeave}
@@ -440,7 +446,7 @@ export function Hero3DBanner() {
           </div>
         </div>
       </div>
-      
+
       {/* Kinetic Type */}
       <div className="type" id="kinetic-type" aria-hidden="true">
         <div className="type-line odd">ofertas ofertas ofertas</div>

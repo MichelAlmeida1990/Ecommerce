@@ -6,24 +6,31 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-poppins',
 })
 
 export const metadata: Metadata = {
-  title: 'E-commerce Top - Sua Loja Online Completa',
-  description: 'E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida. Encontre o que você procura com os melhores preços.',
-  keywords: 'e-commerce, loja online, produtos, tecnologia, moda, esportes, casa, jardim',
-  authors: [{ name: 'E-commerce Top' }],
-  creator: 'E-commerce Top',
-  publisher: 'E-commerce Top',
+  title: 'Versiory Store - Sua Loja Online Completa',
+  description: 'Versiory Store - E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida. Encontre o que você procura com os melhores preços.',
+  keywords: 'e-commerce, loja online, produtos, tecnologia, moda, esportes, casa, jardim, Versiory Store',
+  authors: [{ name: 'Versiory Store' }],
+  creator: 'Versiory Store',
+  publisher: 'Versiory Store',
+  other: {
+    'charset': 'utf-8',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/icon.svg',
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -34,16 +41,16 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'E-commerce Top - Sua Loja Online Completa',
-    description: 'E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida.',
+    title: 'Versiory Store - Sua Loja Online Completa',
+    description: 'Versiory Store - E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida.',
     url: 'http://localhost:3002',
-    siteName: 'E-commerce Top',
+    siteName: 'Versiory Store',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'E-commerce Top',
+        alt: 'Versiory Store',
       },
     ],
     locale: 'pt_BR',
@@ -51,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'E-commerce Top - Sua Loja Online Completa',
-    description: 'E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida.',
+    title: 'Versiory Store - Sua Loja Online Completa',
+    description: 'Versiory Store - E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida.',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -87,7 +94,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          <Toaster 
+          <Toaster
             position="top-right"
             toastOptions={{
               duration: 4000,

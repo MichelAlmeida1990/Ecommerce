@@ -3,7 +3,8 @@ const nextConfig = {
   // Otimizações para produção
   compress: true,
   poweredByHeader: false,
-  
+
+
   // Configuração de imagens otimizada
   images: {
     domains: [
@@ -18,10 +19,10 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  
+
   // Configurações de build
   swcMinify: true,
-  
+
   // Headers de segurança
   async headers() {
     return [
@@ -61,7 +62,7 @@ const nextConfig = {
       },
     ]
   },
-  
+
   // Redirects
   async redirects() {
     return [
@@ -72,10 +73,10 @@ const nextConfig = {
       },
     ]
   },
-  
+
   // Configurações de output para Vercel
   output: 'standalone',
-  
+
   // Desabilitar ESLint durante o build para deploy
   eslint: {
     ignoreDuringBuilds: true,

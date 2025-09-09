@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Award, Heart, Globe, Target, Shield, Truck, Headphones } from 'lucide-react';
 
@@ -67,40 +68,128 @@ const features = [
   }
 ];
 
+// Imagens para o banner sobre - relacionadas a loja e equipe humana
+const aboutImages = [
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&h=1080&fit=crop&crop=center', // Loja moderna
+  'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&h=1080&fit=crop&crop=center', // Equipe de trabalho
+  'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=1920&h=1080&fit=crop&crop=center'  // Ambiente corporativo
+];
+
 export default function SobrePage() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Trocar imagem a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === aboutImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4">
+      {/* Hero Section com Imagens */}
+      <section className="relative h-[80vh] overflow-hidden">
+        {/* Background Images */}
+        <div className="absolute inset-0">
+          {aboutImages.map((image, index) => (
+            <motion.div
+              key={index}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${image})` }}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: index === currentImageIndex ? 1 : 0,
+                scale: index === currentImageIndex ? 1 : 1.05
+              }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+            />
+          ))}
+        </div>
+
+
+        <div className="container mx-auto px-4 h-full flex items-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-5xl mx-auto text-white"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            {/* Overlay sutil apenas para o texto */}
+            <div className="absolute inset-0 bg-black/30 rounded-3xl -m-8"></div>
+            <div className="relative z-10">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-block mb-8"
+            >
+              <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto">
+                <Users className="w-12 h-12 text-white" />
+              </div>
+            </motion.div>
+
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
               Sobre a Versiory Store
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8">
+            <p className="text-xl md:text-2xl text-emerald-100 mb-8 font-medium">
               Sua loja online de confiança desde 2020
             </p>
-            <p className="text-lg text-blue-200">
+            <p className="text-lg text-emerald-200 max-w-3xl mx-auto leading-relaxed mb-8">
               Somos uma empresa brasileira dedicada a oferecer os melhores produtos
-              com preços competitivos e um atendimento excepcional.
+              com preços competitivos e um atendimento excepcional. Nossa missão é
+              transformar sua experiência de compra em algo único e memorável.
             </p>
+
+            {/* Quick Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div className="text-2xl font-bold text-white">50K+</div>
+                <div className="text-sm text-emerald-200">Clientes</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div className="text-2xl font-bold text-white">1000+</div>
+                <div className="text-sm text-emerald-200">Produtos</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div className="text-2xl font-bold text-white">99%</div>
+                <div className="text-sm text-emerald-200">Satisfação</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div className="text-2xl font-bold text-white">Brasil</div>
+                <div className="text-sm text-emerald-200">Cobertura</div>
+              </div>
+            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white dark:bg-gray-800">
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="text-center mb-12"
           >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Números que nos orgulham
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Resultados que refletem nosso compromisso com a excelência
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -108,31 +197,33 @@ export default function SobrePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center"
+                className="group"
               >
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600 dark:text-gray-400">
-                  {stat.label}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-200 dark:hover:border-emerald-600 group-hover:-translate-y-2 text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <stat.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-600 dark:text-gray-400 font-medium">
+                    {stat.label}
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-16">
+      <section className="py-20 bg-white dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Nossos Valores
@@ -150,17 +241,19 @@ export default function SobrePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow"
+                className="group"
               >
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                  <value.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-200 dark:hover:border-emerald-600 group-hover:-translate-y-2 h-full">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <value.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {value.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  {value.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {value.description}
-                </p>
               </motion.div>
             ))}
           </div>

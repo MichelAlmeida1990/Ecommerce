@@ -3,7 +3,7 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "E-commerce Top",
+    "name": "Versiory Store",
     "description": "E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida",
     "url": "https://ecommerce-top.vercel.app",
     "logo": "https://ecommerce-top.vercel.app/logo.png",
@@ -25,7 +25,7 @@ export function generateWebsiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "E-commerce Top",
+    "name": "Versiory Store",
     "url": "https://ecommerce-top.vercel.app",
     "description": "E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida",
     "potentialAction": {
@@ -57,7 +57,7 @@ export function generateProductSchema(product: {
     "image": product.image,
     "brand": {
       "@type": "Brand",
-      "name": product.brand || "E-commerce Top"
+      "name": product.brand || "Versiory Store"
     },
     "category": product.category,
     "sku": product.id,
@@ -68,7 +68,7 @@ export function generateProductSchema(product: {
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       "seller": {
         "@type": "Organization",
-        "name": "E-commerce Top"
+        "name": "Versiory Store"
       },
       "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     },
@@ -99,7 +99,7 @@ export function generateLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "E-commerce Top",
+    "name": "Versiory Store",
     "description": "E-commerce completo com produtos de qualidade, pagamentos seguros e entrega rápida",
     "url": "https://ecommerce-top.vercel.app",
     "telephone": "+55-11-99999-9999",

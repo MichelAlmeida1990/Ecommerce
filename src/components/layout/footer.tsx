@@ -36,17 +36,17 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center space-x-3 mb-6">
               <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-400/80 to-purple-500/80 dark:from-blue-500 dark:to-purple-600 flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">E</span>
+                <span className="text-white font-bold text-xl">V</span>
               </div>
               <span className="font-display text-2xl font-bold text-gray-800 dark:text-white">
-                E-commerce Top
+                Versiory Store
               </span>
             </Link>
             <p className="text-gray-600 dark:text-blue-100 mb-6 max-w-md leading-relaxed">
-              Sua loja online completa com produtos de qualidade, preços competitivos 
+              Sua loja online completa com produtos de qualidade, preços competitivos
               e o melhor atendimento. Transformamos a experiência de compra online.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-sm text-gray-600 dark:text-blue-200">
@@ -145,9 +145,9 @@ export function Footer() {
         <div className="container-responsive py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-600 dark:text-blue-200">
-              © {currentYear} E-commerce Top. Todos os direitos reservados.
+              © {currentYear} Versiory Store. Todos os direitos reservados.
             </div>
-            
+
             <div className="flex items-center space-x-8 text-sm">
               <Link href="/privacidade" className="text-gray-600 dark:text-blue-200 hover:text-gray-800 dark:hover:text-white transition-colors duration-300 hover:underline">
                 Privacidade

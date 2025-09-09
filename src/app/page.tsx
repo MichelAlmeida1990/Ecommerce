@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Hero3DBanner } from '@/components/sections/3d-hero-banner'
+import { SimpleHeroBanner } from '@/components/sections/simple-hero-banner'
 import { CategoriesSection } from '@/components/sections/categories-section'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { NewsletterSection } from '@/components/sections/newsletter-section'
@@ -22,9 +22,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <StructuredData data={structuredData} />
-      
-      {/* Hero Section - Banner 3D Interativo */}
-      <Hero3DBanner />
+
+      {/* Hero Section - Banner Simples */}
+      <SimpleHeroBanner />
 
       {/* Ofertas e Promoções */}
       <Suspense fallback={<LoadingSpinner />}>
